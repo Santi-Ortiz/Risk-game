@@ -5,6 +5,7 @@
 #include <queue>
 #include <unordered_map>
 #include <fstream>
+#include <bitset> //Cambiar de base 10 a 2
 
 using namespace std;
 
@@ -131,54 +132,77 @@ bool Nodo::crearArbol(string texto, string nombreArchivo)
   }
 }
 
-bool Nodo::leerDecodificacion(string texto, string nombreArchivo)
+/*bool Nodo::esBinarioValido(const std::string& str) {
+    for (char c : str) {
+        if (c != '0' && c != '1') {
+            return false;
+        }
+    }
+    return true;
+}*/
+
+bool Nodo::crearArbolFrecuenciaDecimal(string texto, string nombreArchivo)
 {
-  // Cuenta la candidad de veces que aparece un simbolo y la guarda en el mapa
+ //Cuenta la candidad de veces que aparece un simbolo y la guarda en el mapa
   unordered_map<char, int> frecuencia;
-  for (char simbolo : texto)
-  {
+  for (char simbolo:texto){
     frecuencia[simbolo]++;
   }
-  // Se crea una cola de prioridad para guardar los nodos del arbol
-  priority_queue<Nodo *, vector<Nodo *>, comparacion> pq;
-  // Agrega a la cola de prioridad los nodos de cada simbolo
-  for (auto pair : frecuencia)
-  {
+  //Se crea una cola de prioridad para guardar los nodos del arbol
+  priority_queue<Nodo*, vector<Nodo*>, comparacion> pq;
+  //Agrega a la cola de prioridad los nodos de cada simbolo
+  for (auto pair: frecuencia){
     pq.push(getNodo(pair.first, pair.second, nullptr, nullptr));
   }
-  // Hace todo el proceso hasta que haya más de 1 nodo en la cola
-  while (pq.size() != 1)
-  {
-    Nodo *izq = pq.top();
+  //Hace todo el proceso hasta que haya más de 1 nodo en la cola
+  while (pq.size() != 1){
+    Nodo* izq = pq.top();
     pq.pop();
-    Nodo *der = pq.top();
+    Nodo* der = pq.top();
     pq.pop();
     int suma = izq->frecuencia + der->frecuencia;
     pq.push(getNodo('\0', suma, izq, der));
   }
-  Nodo *raiz = pq.top();
-  // Se imprimen los códigos de cada simbolo
+  Nodo* raiz = pq.top();
+  //Se imprimen los códigos de cada simbolo
   unordered_map<char, string> CodigoHuffman;
-  ifstream archivoCodigosHuffman(nombreArchivo);
-  if (archivoCodigosHuffman.fail())
-  {
-    return false;
-  }
-  else
-  {
-    string str = "";
-    for (char simbolo : texto)
-    {
-      str += CodigoHuffman[simbolo];
+  codificar(raiz, "", CodigoHuffman);
+  cout << "Los códigos de Huffman son: " << endl;
+  ofstream archivoCodigosHuffmanDecimales(nombreArchivo);
+  //archivoCodigosHuffman << "Los códigos de Huffman son: ";
+  for (auto pair: CodigoHuffman){
+    cout << pair.first << " " << pair.second << endl;
+    int decimales = std::stoi(pair.second, nullptr, 2);
+    archivoCodigosHuffmanDecimales << pair.first << ":" << decimales << ", ";
+    /*if (esBinarioValido(pair.second)){
+      int decimales = std::stoi(pair.second, nullptr, 2);
+      archivoCodigosHuffmanDecimales << pair.first << ":" << decimales << ", ";
     }
-    archivoCodigosHuffman.close();
-    int indice = -1;
-    cout << "El texto decodificado es: " << endl;
-    while (indice < (int)str.size() - 2)
-    {
-      decodificar(raiz, indice, str);
-    }
-    cout << endl;
-    return true;
+    else {
+      cout << "Error: La cadena binaria no es válida." << endl;
+    }*/
   }
+      //archivoCodigosHuffman.close();
+  //Se imprime el mensaje original que se ingreso (codificado)
+  //Decodifica el el mensaje codificado y lo imprime de nuevo
+  cout << "El mensaje original era: " << texto << endl;
+  //ofstream archivoTextoCodificado("textoCodificado.txt");
+  //archivoCodigosHuffman << "El mensaje original era: " << texto << endl;
+  string str = "";
+  for (char simbolo: texto){
+    str += CodigoHuffman[simbolo];
+  }
+  cout << "El texto codificado es: " << str << endl;
+  archivoCodigosHuffmanDecimales << endl <<  str << endl;
+  //int numDecimal = stoi(str, nullptr, 2);
+  //archivoCodigosHuffmanDecimales << "Binarios: " << numDecimal << endl;
+  archivoCodigosHuffmanDecimales.close();
+  //archivoTextoCodificado << "El texto codificado es: " << str <<endl;
+  //archivoTextoCodificado.close();
+  int indice = -1;
+  cout << "El texto decodificado es: " << endl;
+  while (indice < (int) str.size () - 2){
+    decodificar(raiz, indice, str);
+  }
+  cout << endl;
 }

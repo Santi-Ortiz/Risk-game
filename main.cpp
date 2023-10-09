@@ -2,6 +2,7 @@
 #include <string>
 #include <queue>
 #include <unordered_map>
+#include <bitset>
 #include <fstream>
 #include <cstring>
 #include "TADCarta.h"
@@ -289,7 +290,7 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                     texto += it2->getNombre() + " ";
                 }
             }
-            if (ArbolHuffman.crearArbol(texto, c2))
+            if (ArbolHuffman.crearArbolFrecuenciaDecimal(texto, c2))
             {
                 cout << " \t Partida guardada exitosamente bajo nombre: " << c2 << endl
                      << endl;
@@ -301,9 +302,33 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
         }
         else if (c1 == "guardar_comprimido" && c2 != "" && c3 == "")
         {
-            cout << " \t Partida guardada y codificada exitosamente bajo nombre: "
-                 << c2 << endl
-                 << endl;
+            Nodo ArbolHuffman;
+            int numJugadores = R.getjugadoresActivos().size();
+            std::string texto = std::to_string(numJugadores) + " ";
+            std::vector<Jugador>::iterator it;
+            std::list<Territorio>::iterator it2;
+            std::vector<Jugador> auxJugadores = R.getjugadoresActivos();
+            for (it = auxJugadores.begin(); it != auxJugadores.end(); it++)
+            {
+                std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
+                texto += it->getId() + " ";
+                int numTerritorios = it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados());
+                texto += std::to_string(numTerritorios) + " ";
+                for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
+                {
+                    texto += it2->getNombre() + " ";
+                }
+                
+            }
+             if (ArbolHuffman.crearArbol(texto, c2))
+            {
+                cout << " \t Partida guardada exitosamente bajo nombre: " << c2 << endl
+                     << endl;
+            }
+            else
+            {
+                cout << "No se pudo guardar la partida, intentelo nuevamente" << endl;
+            }
         }
         else if (c1 == "costo_conquista" && c2 != "" && c3 == "")
         {
