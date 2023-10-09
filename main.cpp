@@ -3,6 +3,7 @@
 #include <queue>
 #include <unordered_map>
 #include <fstream>
+#include <cstring>
 #include "TADCarta.h"
 #include "TADContinente.h"
 #include "TADJugador.h"
@@ -210,8 +211,47 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
         }
         else if (c1 == "inicializar" && c2 != "" && c3 == "")
         {
-            cout << " \t Comando valido para inicializar juego ya guardado..." << endl
-                 << endl;
+            if (R.getjugadoresActivos().empty())
+            {
+                cout << "El juego ya ha sido inicializado." << endl;
+            }
+            else
+            {
+                cout << " \t Comando valido para inicializar juego ya guardado..." << endl
+                     << endl;
+
+                string s = "Hola esto es una prueba";
+                char *prueba = &s[0];
+                char *token;
+                token = strtok(prueba, "   ");
+                while (token != NULL)
+                {
+                    cout << token << endl;
+                    token = strtok(NULL, "   ");
+                }
+                /*Nodo ArbolHuffman;
+                string s = ArbolHuffman.leerArchivo(const string& nombreArchivo);
+                char *contenidoArchivo = &s[0];
+                token = strtok(contenidoArchivo, "   ");
+                R.setNJugadoresActivos((int) token);
+                token = strtok(NULL, "   ");
+                std::vector<Jugador>::iterator it;
+            std::list<Territorio>::iterator it2;
+            std::vector<Jugador> auxJugadores = R.getjugadoresActivos();
+            for (it = auxJugadores.begin(); it != auxJugadores.end(); it++)
+            {
+                it->setId(token);
+                token = strtok(NULL, "   ");
+                it->setNTerritoriosConquistados((int) token);
+                token = strtok(NULL, "   ");
+                std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
+                for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
+                {
+                    it2->setNombre(token);
+                    token = strtok(NULL, "   ");
+                }
+            }*/
+            }
 
             // Juego en curso
             // Archivo vacío
@@ -233,20 +273,24 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             std::vector<Jugador>::iterator it;
             std::list<Territorio>::iterator it2;
             std::vector<Jugador> auxJugadores = R.getjugadoresActivos();
-            for (it = auxJugadores.begin(); it != auxJugadores.end(); it ++){
-                std::list<Territorio> listaAuxTerritorios = it -> getTerritoriosConquistados();
+            for (it = auxJugadores.begin(); it != auxJugadores.end(); it++)
+            {
+                std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
                 texto += it->getId() + " ";
                 int numTerritorios = it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados());
                 texto += std::to_string(numTerritorios) + " ";
-                for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++){
-                    texto += it2->getNombre()+ " ";
+                for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
+                {
+                    texto += it2->getNombre() + " ";
                 }
             }
-            if (ArbolHuffman.crearArbol(texto, c2)){
+            if (ArbolHuffman.crearArbol(texto, c2))
+            {
                 cout << " \t Partida guardada exitosamente bajo nombre: " << c2 << endl
-                 << endl;
+                     << endl;
             }
-            else {
+            else
+            {
                 cout << "No se pudo guardar la partida, intentelo nuevamente" << endl;
             }
         }

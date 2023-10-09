@@ -35,6 +35,7 @@ public:
     void setEstadoTurno(bool estadoTurno);
 
     bool saberTerritorioConquistado(Territorio T);
+    void Jugador::setNTerritoriosConquistados(int n);
     int extraerNTerritoriosConquistados(std::list<Territorio> listaTerritoriosConquistados);
     Jugador crearJugador(string id);
 };

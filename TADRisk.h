@@ -82,6 +82,7 @@ public:
   list<Territorio> getListaTerritorio6();
 
   list<Continente> getContinentes();
+  void setNJugadoresActivos(int n);
   void setjugadorActivo(Jugador jugador);
   void setidActiva(string id);
   void setListaTerritorio1(list<Territorio> listaTerritorios, Territorio T);

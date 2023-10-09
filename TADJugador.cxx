@@ -93,6 +93,16 @@ void Jugador::setEstadoTurno(bool estadoTurno)
   this->estadoTurno = estadoTurno;
 }
 
+void Jugador::setNTerritoriosConquistados(int n)
+{
+
+  for (int i = 0; i < n; i++)
+  {
+    Territorio territorio;
+    listaTerritoriosConquistados.push_back(territorio);
+  }
+}
+
 int Jugador::extraerNTerritoriosConquistados(std::list<Territorio> listaTerritoriosConquistados)
 {
   return listaTerritoriosConquistados.size();

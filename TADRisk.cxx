@@ -277,6 +277,15 @@ list<Continente> Risk::getContinentes()
   return continentes;
 }
 
+void Risk::setNJugadoresActivos(int n)
+{
+  for (int i = 0; i < n; i++)
+  {
+    Jugador jugador;
+    jugadoresActivos.push_back(jugador);
+  }
+}
+
 void Risk::setjugadorActivo(Jugador jugador)
 {
   jugadoresActivos.push_back(jugador);
