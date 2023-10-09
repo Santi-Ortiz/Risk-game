@@ -809,7 +809,7 @@ bool Risk::asignarTerritoriosAJugador()
         {
           it3->setEstadoTerritorio(true);
           it->setTerritoriosConquistados(*it3);
-          it3->setCantiUnidades(it->getnUnidadesDisponibles());
+          it3->setCantiUnidades(11);
           std::cout << "Unidades disponibles en territorio " << it3->getNombre() << " :" << it3->getCantiUnidades() << endl;
           // actualizarTerritoriosDisponibles(lterritorios, it2->getNombre());
           std::cout << "\n------------------------------------------" << endl;

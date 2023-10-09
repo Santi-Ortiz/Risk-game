@@ -73,9 +73,9 @@ void Jugador::setManoCartas(Carta carta)
   this->manoCartas = manoCartas;
 }
 
-void Jugador::setnUnidadesDisponibles(int nUnidadesDisponibles)
+void Jugador::setnUnidadesDisponibles(int nUnidadesDisponibles2)
 {
-  this->nUnidadesDisponibles = nUnidadesDisponibles;
+  this->nUnidadesDisponibles = nUnidadesDisponibles2;
 }
 
 int Jugador::getnUnidadesDisponibles()

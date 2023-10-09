@@ -211,7 +211,7 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
         }
         else if (c1 == "inicializar" && c2 != "" && c3 == "")
         {
-            if (R.getjugadoresActivos().empty())
+            if (!R.getjugadoresActivos().empty())
             {
                 cout << "El juego ya ha sido inicializado." << endl;
             }
@@ -220,37 +220,41 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                 cout << " \t Comando valido para inicializar juego ya guardado..." << endl
                      << endl;
 
-                string s = "Hola esto es una prueba";
-                char *prueba = &s[0];
+                string s = "3 a 1 Japon b 1 China c 1 Ural";
+                // char *prueba = &s[0];
                 char *token;
-                token = strtok(prueba, "   ");
-                while (token != NULL)
+                // token = strtok(prueba, "   ");
+                /*while (token != NULL)
                 {
                     cout << token << endl;
                     token = strtok(NULL, "   ");
-                }
-                /*Nodo ArbolHuffman;
-                string s = ArbolHuffman.leerArchivo(const string& nombreArchivo);
+                }*/
+                Nodo ArbolHuffman;
+                // string s = ArbolHuffman.leerArchivo(const string &nombreArchivo);
                 char *contenidoArchivo = &s[0];
                 token = strtok(contenidoArchivo, "   ");
-                R.setNJugadoresActivos((int) token);
+                R.setNJugadoresActivos((int)token);
                 token = strtok(NULL, "   ");
+                cout << "Cantidad de jugadores:" << R.getjugadoresActivos().size() << endl;
                 std::vector<Jugador>::iterator it;
-            std::list<Territorio>::iterator it2;
-            std::vector<Jugador> auxJugadores = R.getjugadoresActivos();
-            for (it = auxJugadores.begin(); it != auxJugadores.end(); it++)
-            {
-                it->setId(token);
-                token = strtok(NULL, "   ");
-                it->setNTerritoriosConquistados((int) token);
-                token = strtok(NULL, "   ");
-                std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
-                for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
+                std::list<Territorio>::iterator it2;
+                std::vector<Jugador> auxJugadores = R.getjugadoresActivos();
+                for (it = auxJugadores.begin(); it != auxJugadores.end(); it++)
                 {
-                    it2->setNombre(token);
+                    it->setId(token);
                     token = strtok(NULL, "   ");
+                    cout << "Id jugador: " << it->getId() << endl;
+                    it->setNTerritoriosConquistados((int)token);
+                    token = strtok(NULL, "   ");
+                    cout << "Numero territorios: " << it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados()) << endl;
+                    std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
+                    for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
+                    {
+                        it2->setNombre(token);
+                        token = strtok(NULL, "   ");
+                        cout << "Nombre territorio: " << it->getId() << endl;
+                    }
                 }
-            }*/
             }
 
             // Juego en curso

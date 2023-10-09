@@ -10,7 +10,7 @@ class Jugador
 {
 private:
     string id;
-    int nUnidadesDisponibles;
+    int nUnidadesDisponibles = 11;
     std::list<Territorio> listaTerritoriosConquistados;
     string color;
     list<Carta> manoCartas;
@@ -35,7 +35,7 @@ public:
     void setEstadoTurno(bool estadoTurno);
 
     bool saberTerritorioConquistado(Territorio T);
-    void Jugador::setNTerritoriosConquistados(int n);
+    void setNTerritoriosConquistados(int n);
     int extraerNTerritoriosConquistados(std::list<Territorio> listaTerritoriosConquistados);
     Jugador crearJugador(string id);
 };
