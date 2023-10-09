@@ -166,28 +166,12 @@ bool Nodo::leerDecodificacion(string texto, string nombreArchivo)
   }
   else
   {
-    // archivoCodigosHuffman << "Los códigos de Huffman son: ";
-    for (auto pair : CodigoHuffman)
-    {
-      cout << pair.first << " " << pair.second << endl;
-      archivoCodigosHuffman << pair.first << ": " << pair.second << ", ";
-    }
-    // archivoCodigosHuffman.close();
-    // Se imprime el mensaje original que se ingreso (codificado)
-    // Decodifica el el mensaje codificado y lo imprime de nuevo
-    // ofstream archivoTextoCodificado("textoCodificado.txt");
-    // archivoCodigosHuffman << "El mensaje original era: " << texto << endl;
     string str = "";
     for (char simbolo : texto)
     {
       str += CodigoHuffman[simbolo];
     }
-    cout << "El texto codificado es: " << str << endl;
-    archivoCodigosHuffman << endl
-                          << str << endl;
     archivoCodigosHuffman.close();
-    // archivoTextoCodificado << "El texto codificado es: " << str <<endl;
-    // archivoTextoCodificado.close();
     int indice = -1;
     cout << "El texto decodificado es: " << endl;
     while (indice < (int)str.size() - 2)
