@@ -2,6 +2,7 @@
 #include <string>
 #include <queue>
 #include <unordered_map>
+#include <bitset>
 #include <fstream>
 #include <cstring>
 #include "TADCarta.h"
@@ -213,14 +214,19 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
         {
             if (!R.getjugadoresActivos().empty())
             {
-                cout << "El juego ya ha sido inicializado." << endl;
+                cout << "El juego ya ha sido inicializado." << endl
+                     << endl;
             }
             else
             {
                 cout << " \t Comando valido para inicializar juego ya guardado..." << endl
                      << endl;
 
+<<<<<<< HEAD
                 string s = "3,a,verde,1,Japon,35,b,azul,1,China,35,c,negro,1,Ural,35";
+=======
+                string s = "3,a,1,Japon,b,1,China,c,1,Ural";
+>>>>>>> 018de5f67c8b9d900efbe464d33ad81c8a9a89de
                 char *token;
                 Nodo ArbolHuffman;
                 // string s = ArbolHuffman.leerArchivo(c2);
@@ -237,9 +243,12 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                     it->setId(token);
                     token = strtok(NULL, " , ");
                     cout << "Id jugador: " << it->getId() << endl;
+<<<<<<< HEAD
                     it->setColor(token);
                     token = strtok(NULL, " , ");
                     cout << "Color: " << it->getColor() << endl;
+=======
+>>>>>>> 018de5f67c8b9d900efbe464d33ad81c8a9a89de
                     it->setNTerritoriosConquistados(atoi(token));
                     token = strtok(NULL, " , ");
                     cout << "Numero territorios: " << it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados()) << endl;
@@ -249,9 +258,12 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                         it2->setNombre(token);
                         token = strtok(NULL, " , ");
                         cout << "Nombre territorio: " << it2->getNombre() << endl;
+<<<<<<< HEAD
                         it2->setCantiUnidades(atoi(token));
                         token = strtok(NULL, " , ");
                         cout << "Numero de cartas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
+=======
+>>>>>>> 018de5f67c8b9d900efbe464d33ad81c8a9a89de
                     }
                 }
             }
@@ -266,6 +278,35 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             }
         }
         else if (c1 == "guardar" && c2 != "" && c3 == "")
+        {
+            Nodo ArbolHuffman;
+            int numJugadores = R.getjugadoresActivos().size();
+            std::string texto = std::to_string(numJugadores) + ",";
+            std::vector<Jugador>::iterator it;
+            std::list<Territorio>::iterator it2;
+            std::vector<Jugador> auxJugadores = R.getjugadoresActivos();
+            for (it = auxJugadores.begin(); it != auxJugadores.end(); it++)
+            {
+                std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
+                texto += it->getId() + ",";
+                int numTerritorios = it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados());
+                texto += std::to_string(numTerritorios) + ",";
+                for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
+                {
+                    texto += it2->getNombre() + ",";
+                }
+            }
+            if (ArbolHuffman.crearArbolFrecuenciaDecimal(texto, c2))
+            {
+                cout << " \t Partida guardada exitosamente bajo nombre: " << c2 << endl
+                     << endl;
+            }
+            else
+            {
+                cout << "No se pudo guardar la partida, intentelo nuevamente" << endl;
+            }
+        }
+        else if (c1 == "guardar_comprimido" && c2 != "" && c3 == "")
         {
             Nodo ArbolHuffman;
             int numJugadores = R.getjugadoresActivos().size();
@@ -293,12 +334,6 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             {
                 cout << "No se pudo guardar la partida, intentelo nuevamente" << endl;
             }
-        }
-        else if (c1 == "guardar_comprimido" && c2 != "" && c3 == "")
-        {
-            cout << " \t Partida guardada y codificada exitosamente bajo nombre: "
-                 << c2 << endl
-                 << endl;
         }
         else if (c1 == "costo_conquista" && c2 != "" && c3 == "")
         {

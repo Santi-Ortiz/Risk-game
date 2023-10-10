@@ -5,6 +5,7 @@
 #include <queue>
 #include <unordered_map>
 #include <fstream>
+#include <bitset> //Cambiar de base 10 a 2
 
 using namespace std;
 
@@ -29,6 +30,26 @@ struct comparacion
     return i->frecuencia > e->frecuencia;
   }
 };
+
+string leerArchivo(const string &nombreArchivo)
+{
+  ifstream archivo("prueba2.txt");
+  if (!archivo)
+  {
+    cerr << "No se pudo abrir el archivo: " << nombreArchivo << endl;
+    exit(1);
+  }
+  string contenido;
+  string linea;
+
+  while (getline(archivo, linea))
+  {
+    contenido += linea;
+  }
+
+  archivo.close();
+  return contenido;
+}
 
 // Revisa Arbol de Huffman y guarda los códigos en un mapa
 void Nodo::codificar(Nodo *raiz, string str, unordered_map<char, string> &CodigoHuffman)
@@ -131,7 +152,16 @@ bool Nodo::crearArbol(string texto, string nombreArchivo)
   }
 }
 
-bool Nodo::leerDecodificacion(string texto, string nombreArchivo)
+/*bool Nodo::esBinarioValido(const std::string& str) {
+    for (char c : str) {
+        if (c != '0' && c != '1') {
+            return false;
+        }
+    }
+    return true;
+}*/
+
+bool Nodo::crearArbolFrecuenciaDecimal(string texto, string nombreArchivo)
 {
   // Cuenta la candidad de veces que aparece un simbolo y la guarda en el mapa
   unordered_map<char, int> frecuencia;
@@ -159,26 +189,47 @@ bool Nodo::leerDecodificacion(string texto, string nombreArchivo)
   Nodo *raiz = pq.top();
   // Se imprimen los códigos de cada simbolo
   unordered_map<char, string> CodigoHuffman;
-  ifstream archivoCodigosHuffman(nombreArchivo);
-  if (archivoCodigosHuffman.fail())
+  codificar(raiz, "", CodigoHuffman);
+  cout << "Los códigos de Huffman son: " << endl;
+  ofstream archivoCodigosHuffmanDecimales(nombreArchivo);
+  // archivoCodigosHuffman << "Los códigos de Huffman son: ";
+  for (auto pair : CodigoHuffman)
   {
-    return false;
+    cout << pair.first << " " << pair.second << endl;
+    int decimales = std::stoi(pair.second, nullptr, 2);
+    archivoCodigosHuffmanDecimales << pair.first << ":" << decimales << ", ";
+    /*if (esBinarioValido(pair.second)){
+      int decimales = std::stoi(pair.second, nullptr, 2);
+      archivoCodigosHuffmanDecimales << pair.first << ":" << decimales << ", ";
+    }
+    else {
+      cout << "Error: La cadena binaria no es válida." << endl;
+    }*/
   }
-  else
+  // archivoCodigosHuffman.close();
+  // Se imprime el mensaje original que se ingreso (codificado)
+  // Decodifica el el mensaje codificado y lo imprime de nuevo
+  cout << "El mensaje original era: " << texto << endl;
+  // ofstream archivoTextoCodificado("textoCodificado.txt");
+  // archivoCodigosHuffman << "El mensaje original era: " << texto << endl;
+  string str = "";
+  for (char simbolo : texto)
   {
-    string str = "";
-    for (char simbolo : texto)
-    {
-      str += CodigoHuffman[simbolo];
-    }
-    archivoCodigosHuffman.close();
-    int indice = -1;
-    cout << "El texto decodificado es: " << endl;
-    while (indice < (int)str.size() - 2)
-    {
-      decodificar(raiz, indice, str);
-    }
-    cout << endl;
-    return true;
+    str += CodigoHuffman[simbolo];
   }
+  cout << "El texto codificado es: " << str << endl;
+  archivoCodigosHuffmanDecimales << endl
+                                 << str << endl;
+  // int numDecimal = stoi(str, nullptr, 2);
+  // archivoCodigosHuffmanDecimales << "Binarios: " << numDecimal << endl;
+  archivoCodigosHuffmanDecimales.close();
+  // archivoTextoCodificado << "El texto codificado es: " << str <<endl;
+  // archivoTextoCodificado.close();
+  int indice = -1;
+  cout << "El texto decodificado es: " << endl;
+  while (indice < (int)str.size() - 2)
+  {
+    decodificar(raiz, indice, str);
+  }
+  cout << endl;
 }
