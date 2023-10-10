@@ -222,10 +222,10 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                 cout << " \t Comando valido para inicializar juego ya guardado..." << endl
                      << endl;
 
-                string s = "3 a verde 1 Japon 35 b azul 1 China 35 c negro 1 Ural 35";
+                // string s = "3 a verde 1 Japon 35 b azul 1 China 35 c negro 1 Ural 35";
                 char *token;
                 Nodo ArbolHuffman;
-                // string s = ArbolHuffman.leerArchivo(c2);
+                string s = ArbolHuffman.cargarPartida(c2);
                 char *contenidoArchivo = &s[0];
                 token = strtok(contenidoArchivo, "   ");
                 R.setNJugadoresActivos(atoi(token));
@@ -251,9 +251,9 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                         it2->setNombre(token);
                         token = strtok(NULL, "   ");
                         cout << "Nombre territorio: " << it2->getNombre() << endl;
-                        it2->setCantiUnidades(atoi(token));
-                        token = strtok(NULL, "   ");
-                        cout << "Numero de tropas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
+                        // it2->setCantiUnidades(atoi(token));
+                        // token = strtok(NULL, "   ");
+                        // cout << "Numero de tropas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
                     }
                 }
             }
@@ -285,7 +285,7 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                 for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
                 {
                     texto += it2->getNombre() + " ";
-                    texto += it2->getCantiUnidades() + " ";
+                    // texto += it2->getCantiUnidades();
                 }
             }
             if (ArbolHuffman.crearArbolFrecuenciaDecimal(texto, c2))
