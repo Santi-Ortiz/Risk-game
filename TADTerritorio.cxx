@@ -29,7 +29,7 @@ int Territorio::getCantiUnidades()
 
 void Territorio::setCantiUnidades(int nUnidades)
 {
-  this->cantiUnidades += nUnidades;
+  this->cantiUnidades = nUnidades;
 }
 
 void Territorio::setVecinos(vector<string> TVecino)

@@ -63,9 +63,10 @@ void Jugador::setColor(string color)
   this->color = color;
 }
 
-/*list<Carta> Jugador::getManoCartas(){
-  return ManoCartas;
-}*/
+list<Carta> Jugador::getManoCartas()
+{
+  return manoCartas;
+}
 
 void Jugador::setManoCartas(Carta carta)
 {
