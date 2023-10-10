@@ -31,26 +31,6 @@ struct comparacion
   }
 };
 
-string leerArchivo(const string &nombreArchivo)
-{
-  ifstream archivo("prueba2.txt");
-  if (!archivo)
-  {
-    cerr << "No se pudo abrir el archivo: " << nombreArchivo << endl;
-    exit(1);
-  }
-  string contenido;
-  string linea;
-
-  while (getline(archivo, linea))
-  {
-    contenido += linea;
-  }
-
-  archivo.close();
-  return contenido;
-}
-
 // Revisa Arbol de Huffman y guarda los códigos en un mapa
 void Nodo::codificar(Nodo *raiz, string str, unordered_map<char, string> &CodigoHuffman)
 {
@@ -86,6 +66,28 @@ void Nodo::decodificar(Nodo *raiz, int &indice, string str)
   else
   {
     decodificar(raiz->der, indice, str);
+  }
+}
+
+void Nodo::decodificarEnArchivo(Nodo *raiz, int &indice, string str, ofstream &archivoCodigosHuffmanDecimales)
+{
+  if (raiz == nullptr)
+  {
+    return;
+  }
+  if (!raiz->izq && !raiz->der)
+  {
+    archivoCodigosHuffmanDecimales << raiz->simbolo;
+    return;
+  }
+  indice++;
+  if (str[indice] == '0')
+  {
+    decodificarEnArchivo(raiz->izq, indice, str, archivoCodigosHuffmanDecimales);
+  }
+  else
+  {
+    decodificarEnArchivo(raiz->der, indice, str, archivoCodigosHuffmanDecimales);
   }
 }
 
@@ -152,15 +154,6 @@ bool Nodo::crearArbol(string texto, string nombreArchivo)
   }
 }
 
-/*bool Nodo::esBinarioValido(const std::string& str) {
-    for (char c : str) {
-        if (c != '0' && c != '1') {
-            return false;
-        }
-    }
-    return true;
-}*/
-
 bool Nodo::crearArbolFrecuenciaDecimal(string texto, string nombreArchivo)
 {
   // Cuenta la candidad de veces que aparece un simbolo y la guarda en el mapa
@@ -198,13 +191,6 @@ bool Nodo::crearArbolFrecuenciaDecimal(string texto, string nombreArchivo)
     cout << pair.first << " " << pair.second << endl;
     int decimales = std::stoi(pair.second, nullptr, 2);
     archivoCodigosHuffmanDecimales << pair.first << ":" << decimales << ", ";
-    /*if (esBinarioValido(pair.second)){
-      int decimales = std::stoi(pair.second, nullptr, 2);
-      archivoCodigosHuffmanDecimales << pair.first << ":" << decimales << ", ";
-    }
-    else {
-      cout << "Error: La cadena binaria no es válida." << endl;
-    }*/
   }
   // archivoCodigosHuffman.close();
   // Se imprime el mensaje original que se ingreso (codificado)
@@ -220,16 +206,32 @@ bool Nodo::crearArbolFrecuenciaDecimal(string texto, string nombreArchivo)
   cout << "El texto codificado es: " << str << endl;
   archivoCodigosHuffmanDecimales << endl
                                  << str << endl;
-  // int numDecimal = stoi(str, nullptr, 2);
-  // archivoCodigosHuffmanDecimales << "Binarios: " << numDecimal << endl;
-  archivoCodigosHuffmanDecimales.close();
-  // archivoTextoCodificado << "El texto codificado es: " << str <<endl;
-  // archivoTextoCodificado.close();
+  // archivoCodigosHuffmanDecimales.close();
   int indice = -1;
-  cout << "El texto decodificado es: " << endl;
+  string menDec = "";
+  // cout << "El texto decodificado es: " << endl;
   while (indice < (int)str.size() - 2)
   {
-    decodificar(raiz, indice, str);
+    decodificarEnArchivo(raiz, indice, str, archivoCodigosHuffmanDecimales);
   }
   cout << endl;
+  archivoCodigosHuffmanDecimales.close();
+}
+
+string Nodo::cargarPartida(string nombreArchivo)
+{
+  ifstream archivoCodigosDecimales(nombreArchivo);
+  string frecuencias, mensaje, decodificacion;
+  getline(archivoCodigosDecimales, frecuencias); // Lee la primera línea
+  getline(archivoCodigosDecimales, mensaje);     // Lee la segunda linea
+  getline(archivoCodigosDecimales, decodificacion);
+  if (archivoCodigosDecimales.is_open())
+  {
+    return decodificacion;
+  }
+  else
+  {
+    cout << "No se pudo abrir el archivo" << endl;
+    return "";
+  }
 }

@@ -7,7 +7,6 @@
 #include <fstream>
 
 using namespace std;
-
 class Nodo
 {
 public:
@@ -17,13 +16,13 @@ public:
 
 public:
     Nodo *getNodo(char simbolo, int frecuencia, Nodo *izq, Nodo *der);
-    string leerArchivo(const string &nombreArchivo);
     void codificar(Nodo *raiz, string str, unordered_map<char, string> &CodigoHuffman);
     void decodificar(Nodo *raiz, int &indice, string str);
+    void decodificarEnArchivo(Nodo *raiz, int &indice, string str, ofstream &archivoCodigosHuffmanDecimales);
     bool crearArbol(string texto, string nombreArchivo); // Cambiar texto por datos de la partida
-    // bool esBinarioValido(const string& str);
     bool crearArbolFrecuenciaDecimal(string texto, string nombreArchivo);
     bool leerDecodificacion(string texto, string nombreArchivo);
+    string cargarPartida(string nombreArchivo);
 };
 
 #endif
