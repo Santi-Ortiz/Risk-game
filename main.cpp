@@ -242,6 +242,9 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                     it->setColor(token);
                     token = strtok(NULL, "   ");
                     cout << "Color: " << it->getColor() << endl;
+                    it->setNManoCartas(atoi(token));
+                    token = strtok(NULL, "   ");
+                    cout << "Numero cartas: " << it->getManoCartas().size() << endl;
                     it->setNTerritoriosConquistados(atoi(token));
                     token = strtok(NULL, "   ");
                     cout << "Numero territorios: " << it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados()) << endl;
@@ -251,9 +254,9 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                         it2->setNombre(token);
                         token = strtok(NULL, "   ");
                         cout << "Nombre territorio: " << it2->getNombre() << endl;
-                        // it2->setCantiUnidades(atoi(token));
-                        // token = strtok(NULL, "   ");
-                        // cout << "Numero de tropas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
+                        it2->setCantiUnidades(atoi(token));
+                        token = strtok(NULL, "   ");
+                        cout << "Numero de tropas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
                     }
                 }
             }
@@ -280,12 +283,13 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                 std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
                 texto += it->getId() + " ";
                 texto += it->getColor() + " ";
+                texto += std::to_string(it->getManoCartas().size()) + " ";
                 int numTerritorios = it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados());
                 texto += std::to_string(numTerritorios) + " ";
                 for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
                 {
                     texto += it2->getNombre() + " ";
-                    // texto += it2->getCantiUnidades();
+                    texto += std::to_string(it2->getCantiUnidades()) + " ";
                 }
             }
             if (ArbolHuffman.crearArbolFrecuenciaDecimal(texto, c2))
@@ -310,11 +314,14 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             {
                 std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
                 texto += it->getId() + " ";
+                texto += it->getColor() + " ";
+                texto += std::to_string(it->getManoCartas().size()) + " ";
                 int numTerritorios = it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados());
                 texto += std::to_string(numTerritorios) + " ";
                 for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
                 {
                     texto += it2->getNombre() + " ";
+                    texto += std::to_string(it2->getCantiUnidades()) + " ";
                 }
             }
             if (ArbolHuffman.crearArbol(texto, c2))

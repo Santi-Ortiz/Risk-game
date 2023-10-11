@@ -31,6 +31,7 @@ public:
     void setTerritoriosConquistados(Territorio T);
     list<Carta> getManoCartas();
     void setManoCartas(Carta carta);
+    void setNManoCartas(int n);
     bool getEstadoTurno();
     void setEstadoTurno(bool estadoTurno);
 

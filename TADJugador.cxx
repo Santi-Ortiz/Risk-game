@@ -67,6 +67,14 @@ list<Carta> Jugador::getManoCartas()
 {
   return manoCartas;
 }
+void Jugador::setNManoCartas(int n)
+{
+  for (int i = 0; i < n; i++)
+  {
+    Carta carta;
+    this->manoCartas.push_back(carta);
+  }
+}
 
 void Jugador::setManoCartas(Carta carta)
 {
