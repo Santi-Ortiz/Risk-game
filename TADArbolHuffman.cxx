@@ -121,7 +121,7 @@ bool Nodo::crearArbol(string texto, string nombreArchivo)
   // Se imprimen los códigos de cada simbolo
   unordered_map<char, string> CodigoHuffman;
   codificar(raiz, "", CodigoHuffman);
-  cout << "Los códigos de Huffman son: " << endl;
+  // cout << "Los códigos de Huffman son: " << endl;
   ofstream archivoCodigosHuffman(nombreArchivo);
   if (archivoCodigosHuffman.fail())
   {
@@ -132,7 +132,7 @@ bool Nodo::crearArbol(string texto, string nombreArchivo)
     // archivoCodigosHuffman << "Los códigos de Huffman son: ";
     for (auto pair : CodigoHuffman)
     {
-      cout << pair.first << " " << pair.second << endl;
+      // cout << pair.first << " " << pair.second << endl;
       archivoCodigosHuffman << pair.first << ": " << pair.second << ", ";
     }
     // archivoCodigosHuffman.close();
@@ -183,19 +183,19 @@ bool Nodo::crearArbolFrecuenciaDecimal(string texto, string nombreArchivo)
   // Se imprimen los códigos de cada simbolo
   unordered_map<char, string> CodigoHuffman;
   codificar(raiz, "", CodigoHuffman);
-  cout << "Los códigos de Huffman son: " << endl;
+  // cout << "Los códigos de Huffman son: " << endl;
   ofstream archivoCodigosHuffmanDecimales(nombreArchivo);
   // archivoCodigosHuffman << "Los códigos de Huffman son: ";
   for (auto pair : CodigoHuffman)
   {
-    cout << pair.first << " " << pair.second << endl;
+    // cout << pair.first << " " << pair.second << endl;
     int decimales = std::stoi(pair.second, nullptr, 2);
     archivoCodigosHuffmanDecimales << pair.first << ":" << decimales << ", ";
   }
   // archivoCodigosHuffman.close();
   // Se imprime el mensaje original que se ingreso (codificado)
   // Decodifica el el mensaje codificado y lo imprime de nuevo
-  cout << "El mensaje original era: " << texto << endl;
+  // cout << "El mensaje original era: " << texto << endl;
   // ofstream archivoTextoCodificado("textoCodificado.txt");
   // archivoCodigosHuffman << "El mensaje original era: " << texto << endl;
   string str = "";
@@ -203,7 +203,7 @@ bool Nodo::crearArbolFrecuenciaDecimal(string texto, string nombreArchivo)
   {
     str += CodigoHuffman[simbolo];
   }
-  cout << "El texto codificado es: " << str << endl;
+  // cout << "El texto codificado es: " << str << endl;
   archivoCodigosHuffmanDecimales << endl
                                  << str << endl;
   // archivoCodigosHuffmanDecimales.close();

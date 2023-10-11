@@ -222,7 +222,10 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                 cout << " \t Comando valido para inicializar juego ya guardado..." << endl
                      << endl;
 
-                // string s = "3 a verde 1 Japon 35 b azul 1 China 35 c negro 1 Ural 35";
+                R.crearContinentes();
+                R.crearTerritorios();
+                R.asignarTerritoriosAContinente();
+                R.continentesAcontinente();
                 char *token;
                 Nodo ArbolHuffman;
                 string s = ArbolHuffman.cargarPartida(c2);
@@ -230,7 +233,7 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                 token = strtok(contenidoArchivo, "   ");
                 R.setNJugadoresActivos(atoi(token));
                 token = strtok(NULL, "   ");
-                cout << "Cantidad de jugadores:" << R.getjugadoresActivos().size() << endl;
+                // cout << "Cantidad de jugadores:" << R.getjugadoresActivos().size() << endl;
                 std::vector<Jugador>::iterator it;
                 std::list<Territorio>::iterator it2;
                 std::vector<Jugador> auxJugadores = R.getjugadoresActivos();
@@ -238,27 +241,28 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                 {
                     it->setId(token);
                     token = strtok(NULL, "   ");
-                    cout << "Id jugador: " << it->getId() << endl;
+                    // cout << "Id jugador: " << it->getId() << endl;
                     it->setColor(token);
                     token = strtok(NULL, "   ");
-                    cout << "Color: " << it->getColor() << endl;
+                    // cout << "Color: " << it->getColor() << endl;
                     it->setNManoCartas(atoi(token));
                     token = strtok(NULL, "   ");
-                    cout << "Numero cartas: " << it->getManoCartas().size() << endl;
+                    // cout << "Numero cartas: " << it->getManoCartas().size() << endl;
                     it->setNTerritoriosConquistados(atoi(token));
                     token = strtok(NULL, "   ");
-                    cout << "Numero territorios: " << it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados()) << endl;
+                    // cout << "Numero territorios: " << it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados()) << endl;
                     std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
                     for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
                     {
                         it2->setNombre(token);
                         token = strtok(NULL, "   ");
-                        cout << "Nombre territorio: " << it2->getNombre() << endl;
+                        // cout << "Nombre territorio: " << it2->getNombre() << endl;
                         it2->setCantiUnidades(atoi(token));
                         token = strtok(NULL, "   ");
-                        cout << "Numero de tropas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
+                        // cout << "Numero de tropas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
                     }
                 }
+                R.inicializarTurno();
             }
         }
         else if (c1 == "turno" && c2 != "" && c3 == "")
@@ -280,16 +284,17 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             std::vector<Jugador> auxJugadores = R.getjugadoresActivos();
             for (it = auxJugadores.begin(); it != auxJugadores.end(); it++)
             {
-                std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
                 texto += it->getId() + " ";
                 texto += it->getColor() + " ";
                 texto += std::to_string(it->getManoCartas().size()) + " ";
                 int numTerritorios = it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados());
                 texto += std::to_string(numTerritorios) + " ";
+                std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
                 for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
                 {
                     texto += it2->getNombre() + " ";
                     texto += std::to_string(it2->getCantiUnidades()) + " ";
+                    // cout << "Cantidad de tropas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
                 }
             }
             if (ArbolHuffman.crearArbolFrecuenciaDecimal(texto, c2))

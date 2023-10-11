@@ -10,7 +10,7 @@ class Jugador
 {
 private:
     string id;
-    int nUnidadesDisponibles = 11;
+    int nUnidadesDisponibles;
     std::list<Territorio> listaTerritoriosConquistados;
     string color;
     list<Carta> manoCartas;

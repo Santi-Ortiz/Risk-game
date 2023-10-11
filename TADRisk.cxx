@@ -20,11 +20,6 @@ vector<Jugador> Risk::getjugadoresActivos()
   return jugadoresActivos;
 }
 
-vector<string> Risk::getidActivas()
-{
-  return idActivas;
-}
-
 Continente Risk::getContinente1()
 {
   return C1;
@@ -292,12 +287,6 @@ void Risk::setjugadorActivo(Jugador jugador)
   // this->jugadoresActivos = jugadoresActivos;
 }
 
-void Risk::setidActiva(string id)
-{
-  idActivas.push_back(id);
-  // this->idActivas = idActivas;
-}
-
 void Risk::setContinentes(Continente continente)
 {
   continentes.push_back(continente);
@@ -345,7 +334,6 @@ bool Risk::crearJugadores()
       jugadorEntrada.setEstadoTurno(false);
       jugadorEntrada.setColor(color);
       jugadoresActivos.push_back(jugadorEntrada);
-      idActivas.push_back(idAux);
     }
     int tropasAasignar;
     if (nJugadores == 3)
@@ -734,7 +722,7 @@ void Risk::imprimirMapa()
               << endl;
     for (it2 = territorios.begin(); it2 != territorios.end(); it2++)
     {
-      std::cout << "- " << it2->getNombre() << "n Unidades: " << it2->getCantiUnidades() << endl;
+      std::cout << "- " << it2->getNombre() << endl;
     }
   }
 }
@@ -1107,9 +1095,9 @@ bool Risk::turnoJugador(string jugador)
   for (int i = 0; i < numJugadores; i++)
   {
     int indice = i % numJugadores;
-    std::cout << "------------------------------------------";
     if (jugadoresActivos[indice].getId() == jugador && jugadoresActivos[indice].getEstadoTurno())
     {
+      cout << "\n------------------------------------------";
       status = true;
       jugadoresActivos[indice].setEstadoTurno(false);
       std::cout << "\nTurno del jugador: " << jugadoresActivos[indice].getId() << endl;
@@ -1123,12 +1111,15 @@ bool Risk::turnoJugador(string jugador)
         jugadoresActivos[indice + 1].setEstadoTurno(true);
         std::cout << "Siguiente jugador: " << jugadoresActivos[indice + 1].getId() << endl;
       }
+      cout << "------------------------------------------" << endl
+           << endl;
+
       return status;
     }
   }
-
+  cout << "\n------------------------------------------" << endl;
   std::cout << "No es el turno del jugador: " << jugador << endl;
-
+  cout << "------------------------------------------" << endl;
   return status;
 }
 
@@ -1271,7 +1262,7 @@ bool Risk::atacarTerritorio(Territorio T1, Territorio T2, Jugador &J1, Jugador &
 
           if (perdidasAtacante >= Atacante.getCantiUnidades())
           {
-            std::cout << "El ataque ha fallado y el territorio " << Atacante.getNombre() << " ha sido perdido" << std::endl;
+            std::cout << "El ataque ha fallado" << std::endl;
             it3->setEstadoTerritorio(false);
             J1.getTerritoriosConquistados().erase(it3);
             return true;
@@ -1299,88 +1290,6 @@ bool Risk::atacarTerritorio(Territorio T1, Territorio T2, Jugador &J1, Jugador &
   std::cout << "Uno o ambos territorios no existen" << std::endl;
   return false;
 }
-
-/*void Risk::atacarTerritorio(vector<string> vecinos, Jugador J1, Jugador J2, Territorio T1, Territorio T2)
-{
-  std::list<Continente>::iterator it;
-  std::list<Territorio>::iterator it2;
-  std::list<Territorio>::iterator it2aux;
-  std::list<Territorio>::iterator it3;
-
-  int resulAtacante, resulDefensor;
-  string territorioAtacante, territorioAtacar;
-  Jugador atacante = J1;
-  Jugador defensor = J2;
-  Territorio Atacado, Atacante;
-  bool A1 = false, A2 = false;
-
-  for (it = continentes.begin(); it != continentes.end(); it++)
-  {
-    std::list<Territorio> lterritoriosAtacado = it->getListaTerritorio();
-    for (it2 = lterritorios.begin(); it2 != lterritorios.end(); it2++)
-    {
-      std::list<Territorio> lterritoriosAtacante = it->getListaTerritorio();
-      for (it3 = lterritoriosAtacante.begin(); it3 != lterritoriosAtacante.end(); it3++)
-      {
-        if (it3->getNombre() == T1.getNombre())
-        {
-          std::cout << "Entra el primer if" << endl;
-          Territorio Atacante = *it3;
-          A1 = true;
-        }
-        if (it2->getNombre() == T2.getNombre())
-        {
-          std::cout << "Entra el segundo if" << endl;
-          Territorio Atacado = *it2;
-          A2 = true;
-        }
-
-        if (A1 && A2)
-        {
-          for (int i = 1; i <= 3; i++)
-          {
-            resulAtacante = dadosAtacante(atacante);
-            resulDefensor = dadosDefensor(defensor);
-            if (resulAtacante < resulDefensor || resulAtacante == resulDefensor)
-            {
-              J1.setnUnidadesDisponibles(-1);
-              Atacado.setCantiUnidades(1);
-              Atacante.setCantiUnidades(-1);
-              std::cout << "El atacado tiene " << Atacado.getCantiUnidades() << endl;
-              std::cout << "El atacante tiene " << Atacante.getCantiUnidades() << endl;
-
-              if (Atacado.getCantiUnidades() == 0)
-              {
-                it2aux = it2;
-                J2.getTerritoriosConquistados().erase(it2);
-                J1.setTerritoriosConquistados(*it3);
-                it2 = it2aux;
-              }
-              else if (Atacante.getCantiUnidades() == 0)
-              {
-                it2aux = it2;
-                J1.getTerritoriosConquistados().erase(it2);
-                J2.setTerritoriosConquistados(*it3);
-                it2 = it2aux;
-              }
-              // Atacante pierde una unidad en el territorio atacante
-            }
-            else if (resulAtacante > resulDefensor)
-            {
-              J2.setnUnidadesDisponibles(J2.getnUnidadesDisponibles() + 1);
-              Atacante.setCantiUnidades(1);
-              Atacado.setCantiUnidades(-1);
-
-              std::cout << "El atacado tiene " << Atacado.getCantiUnidades() << endl;
-              std::cout << "El atacante tiene " << Atacante.getCantiUnidades() << endl;
-              // Defensor pierde una unidad del terriotorio atacado
-            }
-          }
-        }
-      }
-    }
-  }
-}*/
 
 bool Risk::fortificarTerritorio(Jugador J, Territorio T1, Territorio T2, int nUnidades)
 {
