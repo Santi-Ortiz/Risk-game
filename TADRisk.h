@@ -111,6 +111,7 @@ public:
   int revisarTerritorioXContinente(Continente C, list<Territorio> listaTerritoriosConquistados);
 
   // Turno
+  void pruebaJugadores();
   void inicializarTurno();
   bool turnoJugador(string jugador);
   bool obtenerUnidades(Jugador J);
