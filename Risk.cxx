@@ -750,6 +750,25 @@ void Risk::imprimirVecinos(Territorio territorio)
     }
   }
 }
+
+void Risk::imprimirJugadores()
+{
+  cout << "Prueba impresion "<<endl;
+  std::vector<Jugador>::iterator it;
+  std::list<Territorio>::iterator it2;
+  std::vector<Jugador> auxJugadores = jugadoresActivos;
+  for (it = auxJugadores.begin(); it != auxJugadores.end(); it++)
+  {
+    cout <<"Jugador: "<< it->getId() << endl;
+    std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
+    for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
+    {
+      cout << "Nombre territorio: " << it2->getNombre() << endl;
+      cout << "Numero de tropas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
+    }
+  }
+}
+
 //--------------------------------------------------------------------------------
 //                             Inicializar
 //--------------------------------------------------------------------------------
@@ -1466,7 +1485,7 @@ bool Risk::fortificarTerritorio(Jugador J, Territorio T1, Territorio T2, int nUn
   }
 }
 
-void Risk::modosDeJuego(Jugador J1, Jugador J2, vector<string> vecinos)
+void Risk::modosDeJuego(Jugador J1, Jugador J2)
 {
   string atacar, fortificar, territorioAtacar, territorioAtacante, territorioExtraccion, territorioAdicion;
   int nUnidades;
@@ -1499,7 +1518,7 @@ void Risk::modosDeJuego(Jugador J1, Jugador J2, vector<string> vecinos)
       cin >> territorioAtacar;
       tAtacado.setNombre(territorioAtacar);
     } while (!verificarVecinos(tAtacar, tAtacado) && !territorioPerteneciente(J2, territorioAtacar));
-    // atacarTerritorio(vecinos, J1, J2, tAtacar, tAtacado);
+
     std::cout << "\n------------------------------------------" << endl;
     atacarTerritorio(tAtacar, tAtacado, J1, J2);
     std::cout << "------------------------------------------" << endl;

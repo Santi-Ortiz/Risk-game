@@ -1,5 +1,5 @@
-#ifndef TADTerritorio
-#define TADTerritorio
+#ifndef __Territorio__
+#define __Territorio__
 #include <string>
 #include <vector>
 using namespace std;

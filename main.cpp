@@ -14,7 +14,7 @@
 #include <vector>
 using namespace std;
 
-void introducirComando(string c1, string c2, string c3, string comando, Risk R, Jugador J1, Jugador J2, vector<string> vecinos, int nUnidades)
+void introducirComando(string c1, string c2, string c3, string comando, Risk R, Jugador J1, Jugador J2, int nUnidades)
 {
 
     while (c1 != "salir")
@@ -226,6 +226,7 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                 R.crearTerritorios();
                 R.asignarTerritoriosAContinente();
                 R.continentesAcontinente();
+                R.getjugadoresActivos().clear();
                 char *token;
                 Nodo ArbolHuffman;
                 string s = ArbolHuffman.cargarPartida(c2);
@@ -236,32 +237,32 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                 // cout << "Cantidad de jugadores:" << R.getjugadoresActivos().size() << endl;
                 std::vector<Jugador>::iterator it;
                 std::list<Territorio>::iterator it2;
-                std::vector<Jugador> auxJugadores = R.getjugadoresActivos();
-                for (it = auxJugadores.begin(); it != auxJugadores.end(); it++)
+                for (it = R.getjugadoresActivos().begin(); it != R.getjugadoresActivos().end(); it++)
                 {
                     it->setId(token);
                     token = strtok(NULL, "   ");
-                    // cout << "Id jugador: " << it->getId() << endl;
+                    cout << "Id jugador: " << it->getId() << endl;
                     it->setColor(token);
                     token = strtok(NULL, "   ");
-                    // cout << "Color: " << it->getColor() << endl;
+                    cout << "Color: " << it->getColor() << endl;
                     it->setNManoCartas(atoi(token));
                     token = strtok(NULL, "   ");
-                    // cout << "Numero cartas: " << it->getManoCartas().size() << endl;
+                    cout << "Numero cartas: " << it->getManoCartas().size() << endl;
                     it->setNTerritoriosConquistados(atoi(token));
                     token = strtok(NULL, "   ");
-                    // cout << "Numero territorios: " << it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados()) << endl;
+                    cout << "Numero territorios: " << it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados()) << endl;
                     std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
-                    for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
+                    for (it2 = it->getTerritoriosConquistados().begin(); it2 != it->getTerritoriosConquistados().end(); it2++)
                     {
                         it2->setNombre(token);
                         token = strtok(NULL, "   ");
-                        // cout << "Nombre territorio: " << it2->getNombre() << endl;
+                        cout << "Nombre territorio: " << it2->getNombre() << endl;
                         it2->setCantiUnidades(atoi(token));
                         token = strtok(NULL, "   ");
-                        // cout << "Numero de tropas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
+                        cout << "Numero de tropas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
                     }
                 }
+                R.imprimirJugadores();
                 R.inicializarTurno();
             }
         }
@@ -270,7 +271,7 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             J1.setId(c2);
             if (R.turnoJugador(J1.getId()))
             {
-                R.modosDeJuego(J1, J2, vecinos);
+                R.modosDeJuego(J1, J2);
                 cin.ignore();
             }
         }
@@ -369,9 +370,8 @@ int main()
     string c3 = "";
     Risk R;
     Jugador J1, J2;
-    vector<string> vecinos;
     int nUnidades;
 
-    introducirComando(c1, c2, c3, comando, R, J1, J2, vecinos, nUnidades);
+    introducirComando(c1, c2, c3, comando, R, J1, J2, nUnidades);
     return 0;
 }

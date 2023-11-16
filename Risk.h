@@ -100,6 +100,7 @@ public:
   void continentesAcontinente();
   void imprimirMapa();
   void imprimirVecinos(Territorio territorio);
+  void imprimirJugadores();
 
   // Inicializar
   list<Territorio> actualizarTerritoriosDisponibles(list<Territorio> territoriosDisponibles, string nombre);
@@ -123,7 +124,7 @@ public:
   int dadosDefensor(Jugador J);
   int dadosAtacante(Jugador J);
   bool fortificarTerritorio(Jugador J, Territorio T1, Territorio T2, int nUnidades);
-  void modosDeJuego(Jugador J1, Jugador J2, vector<string> vecinos);
+  void modosDeJuego(Jugador J1, Jugador J2);
   bool verificarVecinos(Territorio T1, Territorio T2);
 
   // Cartas
