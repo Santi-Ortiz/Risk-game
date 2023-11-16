@@ -5,11 +5,11 @@
 #include <bitset>
 #include <fstream>
 #include <cstring>
-#include "TADCarta.h"
-#include "TADContinente.h"
-#include "TADJugador.h"
-#include "TADRisk.h"
-#include "TADArbolHuffman.h"
+#include "Carta.h"
+#include "Continente.h"
+#include "Jugador.h"
+#include "Risk.h"
+#include "ArbolHuffman.h"
 
 #include <vector>
 using namespace std;

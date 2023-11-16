@@ -1,5 +1,5 @@
-#include "TADArbolHuffman.h"
-#include "TADRisk.h"
+#include "ArbolHuffman.h"
+#include "Risk.h"
 #include <iostream>
 #include <string>
 #include <queue>
