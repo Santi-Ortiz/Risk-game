@@ -6,12 +6,16 @@ using namespace std;
 class Territorio
 {
 private:
+  int id;
   string nombre;
   int cantiUnidades;
   vector<string> vecinos;
   bool estadoTerritorio;
 
 public:
+  Territorio();
+  int getIdTerritorio();
+  void setIdTerritorio(int id);
   string getNombre();
   void setNombre(string nombre);
   int getCantiUnidades();
