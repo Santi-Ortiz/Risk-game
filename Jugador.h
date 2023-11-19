@@ -27,7 +27,7 @@ public:
     int getnUnidadesDisponibles();
     void setColor(string color);
     string getColor();
-    list<Territorio> getTerritoriosConquistados();
+    list<Territorio>& getTerritoriosConquistados();
     void setTerritoriosConquistados(Territorio T);
     list<Carta> getManoCartas();
     void setManoCartas(Carta carta);

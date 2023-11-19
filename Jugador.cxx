@@ -38,7 +38,7 @@ std::string Jugador::getId()
   return id;
 }
 
-list<Territorio> Jugador::getTerritoriosConquistados()
+list<Territorio>& Jugador::getTerritoriosConquistados()
 {
   return listaTerritoriosConquistados;
 }

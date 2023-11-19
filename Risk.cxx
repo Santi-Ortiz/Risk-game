@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <cstring>
 #include "Risk.h"
 #include "Jugador.h"
 #include "Territorio.h"
@@ -781,12 +782,13 @@ void Risk::insertarAristasJuego()
       std::vector<string> vecinos = it2->getVecinos();
       std::vector<string>::iterator it3;
       for (it3 = vecinos.begin(); it3 != vecinos.end(); it3++)
-      { 
+      {
         std::list<Territorio>::iterator it4;
         std::list<Territorio> territoriosVecinos = it->getListaTerritorio();
-        for(it4 = territoriosVecinos.begin(); it4 != territoriosVecinos.end(); it4++){
-          if(*it3 == it4->getNombre())
-            grafo.insertarArista(it2->getIdTerritorio(), it4->getIdTerritorio(), it4->getCantiUnidades());
+        for (it4 = territoriosVecinos.begin(); it4 != territoriosVecinos.end(); it4++)
+        {
+          // if (*it3 == it4->getNombre())
+          // grafo.insertarArista(it2->getIdTerritorio(), it4->getIdTerritorio(), it4->getCantiUnidades());
         }
       }
     }
@@ -819,14 +821,17 @@ void Risk::imprimirVecinos(Territorio territorio)
 
 void Risk::imprimirJugadores()
 {
-  cout << "Prueba impresion " << endl;
+  cout << "\nPrueba impresion " << endl;
   std::vector<Jugador>::iterator it;
-  std::list<Territorio>::iterator it2;
-  std::vector<Jugador> auxJugadores = jugadoresActivos;
-  for (it = auxJugadores.begin(); it != auxJugadores.end(); it++)
+  for (it = jugadoresActivos.begin(); it != jugadoresActivos.end(); it++)
   {
-    cout << "Jugador: " << it->getId() << endl;
-    std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
+    cout << "Id jugador: " << it->getId() << endl;
+    cout << "Color: " << it->getColor() << endl;
+    cout << "Numero cartas: " << it->getManoCartas().size() << endl;
+    cout << "Numero territorios: " << it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados()) << endl;
+
+    std::list<Territorio>::iterator it2;
+    std::list<Territorio> &listaAuxTerritorios = it->getTerritoriosConquistados();
     for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
     {
       cout << "Nombre territorio: " << it2->getNombre() << endl;
@@ -1655,5 +1660,41 @@ void Risk::modosDeJuego(Jugador J1, Jugador J2)
     std::cout << "\n------------------------------------------" << endl;
     std::cout << "Turno terminado para el jugador: " << J1.getId() << endl;
     std::cout << "------------------------------------------" << endl;
+  }
+}
+
+void Risk::inicializarPartida(char *token, string s)
+{
+  char *contenidoArchivo = &s[0];
+  token = strtok(contenidoArchivo, "   ");
+  setNJugadoresActivos(atoi(token));
+  token = strtok(NULL, "   ");
+  // cout << "Cantidad de jugadores:" << R.getjugadoresActivos().size() << endl;
+  std::vector<Jugador>::iterator it;
+  for (it = jugadoresActivos.begin(); it != jugadoresActivos.end(); it++)
+  {
+    it->setId(token);
+    token = strtok(NULL, "   ");
+    cout << "Id jugador: " << it->getId() << endl;
+    it->setColor(token);
+    token = strtok(NULL, "   ");
+    cout << "Color: " << it->getColor() << endl;
+    it->setNManoCartas(atoi(token));
+    token = strtok(NULL, "   ");
+    cout << "Numero cartas: " << it->getManoCartas().size() << endl;
+    it->setNTerritoriosConquistados(atoi(token));
+    token = strtok(NULL, "   ");
+    cout << "Numero territorios: " << it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados()) << endl;
+    std::list<Territorio> &listaAuxTerritorios = it->getTerritoriosConquistados();
+    std::list<Territorio>::iterator it2;
+    for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
+    {
+      it2->setNombre(token);
+      token = strtok(NULL, "   ");
+      cout << "Nombre territorio: " << it2->getNombre() << endl;
+      it2->setCantiUnidades(atoi(token));
+      token = strtok(NULL, "   ");
+      cout << "Numero de tropas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
+    }
   }
 }

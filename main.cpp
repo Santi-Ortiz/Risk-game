@@ -15,7 +15,7 @@
 #include <vector>
 using namespace std;
 
-void introducirComando(string c1, string c2, string c3, string comando, Risk R, Jugador J1, Jugador J2, int nUnidades)
+void introducirComando(string c1, string c2, string c3, string comando, Risk R, Jugador J1, Jugador J2)
 {
 
     while (c1 != "salir")
@@ -228,41 +228,11 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                 R.asignarTerritoriosAContinente();
                 R.continentesAcontinente();
                 R.getjugadoresActivos().clear();
+                R.imprimirMapa();
                 char *token;
                 Nodo ArbolHuffman;
                 string s = ArbolHuffman.cargarPartida(c2);
-                char *contenidoArchivo = &s[0];
-                token = strtok(contenidoArchivo, "   ");
-                R.setNJugadoresActivos(atoi(token));
-                token = strtok(NULL, "   ");
-                // cout << "Cantidad de jugadores:" << R.getjugadoresActivos().size() << endl;
-                std::vector<Jugador>::iterator it;
-                std::list<Territorio>::iterator it2;
-                for (it = R.getjugadoresActivos().begin(); it != R.getjugadoresActivos().end(); it++)
-                {
-                    it->setId(token);
-                    token = strtok(NULL, "   ");
-                    cout << "Id jugador: " << it->getId() << endl;
-                    it->setColor(token);
-                    token = strtok(NULL, "   ");
-                    cout << "Color: " << it->getColor() << endl;
-                    it->setNManoCartas(atoi(token));
-                    token = strtok(NULL, "   ");
-                    cout << "Numero cartas: " << it->getManoCartas().size() << endl;
-                    it->setNTerritoriosConquistados(atoi(token));
-                    token = strtok(NULL, "   ");
-                    cout << "Numero territorios: " << it->extraerNTerritoriosConquistados(it->getTerritoriosConquistados()) << endl;
-                    std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
-                    for (it2 = it->getTerritoriosConquistados().begin(); it2 != it->getTerritoriosConquistados().end(); it2++)
-                    {
-                        it2->setNombre(token);
-                        token = strtok(NULL, "   ");
-                        cout << "Nombre territorio: " << it2->getNombre() << endl;
-                        it2->setCantiUnidades(atoi(token));
-                        token = strtok(NULL, "   ");
-                        cout << "Numero de tropas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
-                    }
-                }
+                R.inicializarPartida(token, s);
                 R.imprimirJugadores();
                 R.inicializarTurno();
             }
@@ -346,7 +316,7 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             cout << " \t Costo conquista del territorio: " << c2 << endl
                  << endl;
             int costoArsita;
-            //CostoArsita debe utilizar el idPais y con los for llegar a las unidades del terriotrio y asignarlas
+            // CostoArsita debe utilizar el idPais y con los for llegar a las unidades del terriotrio y asignarlas
             Grafo<int> GrafoRisk;
             int idPais = std::stoi(c2);
             GrafoRisk.InsertarVertice(1);
@@ -363,74 +333,76 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             GrafoRisk.InsertarVertice(12);
             GrafoRisk.InsertarVertice(13);
             GrafoRisk.InsertarVertice(14);
-            GrafoRisk.InsertarVertice(15);/*
-            GrafoRisk.InsertarVertice(16);
-            GrafoRisk.InsertarVertice(17);
-            GrafoRisk.InsertarVertice(18);
-            GrafoRisk.InsertarVertice(19);
-            GrafoRisk.InsertarVertice(20);
-            GrafoRisk.InsertarVertice(21);
-            GrafoRisk.InsertarVertice(22);
-            GrafoRisk.InsertarVertice(23);
-            GrafoRisk.InsertarVertice(24);
-            GrafoRisk.InsertarVertice(25);
-            GrafoRisk.InsertarVertice(26);
-            GrafoRisk.InsertarVertice(27);
-            GrafoRisk.InsertarVertice(28);
-            GrafoRisk.InsertarVertice(29);
-            GrafoRisk.InsertarVertice(30);
-            GrafoRisk.InsertarVertice(31);
-            GrafoRisk.InsertarVertice(32);
-            GrafoRisk.InsertarVertice(33);
-            GrafoRisk.InsertarVertice(34);
-            GrafoRisk.InsertarVertice(35);
-            GrafoRisk.InsertarVertice(36);
-            GrafoRisk.InsertarVertice(37);
-            GrafoRisk.InsertarVertice(38);
-            GrafoRisk.InsertarVertice(39);
-            GrafoRisk.InsertarVertice(40);
-            GrafoRisk.InsertarVertice(41);
-            GrafoRisk.InsertarVertice(42);*/
-            GrafoRisk.InsertarArista(1,2,32);
-            GrafoRisk.InsertarArista(1,6,54);
-            GrafoRisk.InsertarArista(1,32,34);
-            GrafoRisk.InsertarArista(2,1,65);
-            GrafoRisk.InsertarArista(2,4,13);
-            GrafoRisk.InsertarArista(2,6,65);
-            GrafoRisk.InsertarArista(2,7,12);
-            GrafoRisk.InsertarArista(2,9,64);
-            GrafoRisk.InsertarArista(3,4,23);
-            GrafoRisk.InsertarArista(3,9,54);
-            GrafoRisk.InsertarArista(3,13,52);
-            GrafoRisk.InsertarArista(4,3,65);
-            GrafoRisk.InsertarArista(4,7,23);
-            GrafoRisk.InsertarArista(4,8,64);
-            GrafoRisk.InsertarArista(4,9,32);
-            GrafoRisk.InsertarArista(5,6,54);
-            GrafoRisk.InsertarArista(5,7,13);
-            GrafoRisk.InsertarArista(5,8,25);
-            GrafoRisk.InsertarArista(5,15,12);
-            GrafoRisk.InsertarArista(6,1,43);
-            GrafoRisk.InsertarArista(6,2,12);
-            GrafoRisk.InsertarArista(6,5,43);
-            GrafoRisk.InsertarArista(6,7,23);
-            GrafoRisk.InsertarArista(7,2,65);
-            GrafoRisk.InsertarArista(7,4,34);
-            GrafoRisk.InsertarArista(7,5,65);
-            GrafoRisk.InsertarArista(7,6,43);
-            GrafoRisk.InsertarArista(7,8,53);
-            GrafoRisk.InsertarArista(7,9,23);
-            GrafoRisk.InsertarArista(8,4,53);
-            GrafoRisk.InsertarArista(8,5,45);
-            GrafoRisk.InsertarArista(8,7,23);
-            GrafoRisk.InsertarArista(9,2,43);
-            GrafoRisk.InsertarArista(9,3,23);
-            GrafoRisk.InsertarArista(9,4,43);
-            GrafoRisk.InsertarArista(9,7,12);
-            if (idPais>=1 && idPais<=42){
+            GrafoRisk.InsertarVertice(15); /*
+             GrafoRisk.InsertarVertice(16);
+             GrafoRisk.InsertarVertice(17);
+             GrafoRisk.InsertarVertice(18);
+             GrafoRisk.InsertarVertice(19);
+             GrafoRisk.InsertarVertice(20);
+             GrafoRisk.InsertarVertice(21);
+             GrafoRisk.InsertarVertice(22);
+             GrafoRisk.InsertarVertice(23);
+             GrafoRisk.InsertarVertice(24);
+             GrafoRisk.InsertarVertice(25);
+             GrafoRisk.InsertarVertice(26);
+             GrafoRisk.InsertarVertice(27);
+             GrafoRisk.InsertarVertice(28);
+             GrafoRisk.InsertarVertice(29);
+             GrafoRisk.InsertarVertice(30);
+             GrafoRisk.InsertarVertice(31);
+             GrafoRisk.InsertarVertice(32);
+             GrafoRisk.InsertarVertice(33);
+             GrafoRisk.InsertarVertice(34);
+             GrafoRisk.InsertarVertice(35);
+             GrafoRisk.InsertarVertice(36);
+             GrafoRisk.InsertarVertice(37);
+             GrafoRisk.InsertarVertice(38);
+             GrafoRisk.InsertarVertice(39);
+             GrafoRisk.InsertarVertice(40);
+             GrafoRisk.InsertarVertice(41);
+             GrafoRisk.InsertarVertice(42);*/
+            GrafoRisk.InsertarArista(1, 2, 32);
+            GrafoRisk.InsertarArista(1, 6, 54);
+            GrafoRisk.InsertarArista(1, 32, 34);
+            GrafoRisk.InsertarArista(2, 1, 65);
+            GrafoRisk.InsertarArista(2, 4, 13);
+            GrafoRisk.InsertarArista(2, 6, 65);
+            GrafoRisk.InsertarArista(2, 7, 12);
+            GrafoRisk.InsertarArista(2, 9, 64);
+            GrafoRisk.InsertarArista(3, 4, 23);
+            GrafoRisk.InsertarArista(3, 9, 54);
+            GrafoRisk.InsertarArista(3, 13, 52);
+            GrafoRisk.InsertarArista(4, 3, 65);
+            GrafoRisk.InsertarArista(4, 7, 23);
+            GrafoRisk.InsertarArista(4, 8, 64);
+            GrafoRisk.InsertarArista(4, 9, 32);
+            GrafoRisk.InsertarArista(5, 6, 54);
+            GrafoRisk.InsertarArista(5, 7, 13);
+            GrafoRisk.InsertarArista(5, 8, 25);
+            GrafoRisk.InsertarArista(5, 15, 12);
+            GrafoRisk.InsertarArista(6, 1, 43);
+            GrafoRisk.InsertarArista(6, 2, 12);
+            GrafoRisk.InsertarArista(6, 5, 43);
+            GrafoRisk.InsertarArista(6, 7, 23);
+            GrafoRisk.InsertarArista(7, 2, 65);
+            GrafoRisk.InsertarArista(7, 4, 34);
+            GrafoRisk.InsertarArista(7, 5, 65);
+            GrafoRisk.InsertarArista(7, 6, 43);
+            GrafoRisk.InsertarArista(7, 8, 53);
+            GrafoRisk.InsertarArista(7, 9, 23);
+            GrafoRisk.InsertarArista(8, 4, 53);
+            GrafoRisk.InsertarArista(8, 5, 45);
+            GrafoRisk.InsertarArista(8, 7, 23);
+            GrafoRisk.InsertarArista(9, 2, 43);
+            GrafoRisk.InsertarArista(9, 3, 23);
+            GrafoRisk.InsertarArista(9, 4, 43);
+            GrafoRisk.InsertarArista(9, 7, 12);
+            if (idPais >= 1 && idPais <= 42)
+            {
                 GrafoRisk.Dijkstra(idPais);
             }
-            else {
+            else
+            {
                 cout << "Ingrese un ID de país correcto" << endl;
             }
         }
@@ -459,8 +431,7 @@ int main()
     string c3 = "";
     Risk R;
     Jugador J1, J2;
-    int nUnidades;
 
-    introducirComando(c1, c2, c3, comando, R, J1, J2, nUnidades);
+    introducirComando(c1, c2, c3, comando, R, J1, J2);
     return 0;
 }

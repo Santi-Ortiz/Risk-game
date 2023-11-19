@@ -18,7 +18,7 @@ private:
   list<Territorio> G1, G2, G3, G4, G5, G6, lterritorios;
   list<list<Territorio>> territorios;
   list<Continente> continentes;
-  Grafo<int> grafo;
+  // Grafo<int> grafo;
 
 public:
   vector<Jugador> getjugadoresActivos();
@@ -136,6 +136,9 @@ public:
 
   // Grafo
   void insertarAristasJuego();
+  
+  // Inicializar con archivo
+  void inicializarPartida(char *token, string s);
 };
 
 #endif
