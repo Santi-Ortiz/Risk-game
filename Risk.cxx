@@ -432,211 +432,253 @@ void Risk::crearTerritorios()
   vector<string> V41 = {"Australia_Oriental", "Indonesia", "Australia_Occidental"};
   vector<string> V42 = {"Australia_Oriental", "Indonesia", "Nueva_Guinea"};
 
+  T1.setIdTerritorio(1);
   T1.setNombre("Alaska");
   T1.setVecinos(V1);
   T1.setEstadoTerritorio(false);
   T1.setCantiUnidades(0);
 
+  T2.setIdTerritorio(2);
   T2.setNombre("Alberta");
   T2.setVecinos(V2);
   T2.setEstadoTerritorio(false);
   T2.setCantiUnidades(0);
 
+  T3.setIdTerritorio(3);
   T3.setNombre("America_Central");
   T3.setVecinos(V3);
   T3.setEstadoTerritorio(false);
   T3.setCantiUnidades(0);
 
+  T4.setIdTerritorio(4);
   T4.setNombre("Estados_Unidos_Orientales");
   T4.setVecinos(V4);
   T4.setEstadoTerritorio(false);
   T4.setCantiUnidades(0);
 
+  T5.setIdTerritorio(5);
   T5.setNombre("Groenlandia");
   T5.setVecinos(V5);
   T5.setEstadoTerritorio(false);
   T5.setCantiUnidades(0);
 
+  T6.setIdTerritorio(6);
   T6.setNombre("Territorio_Noroccidental");
   T6.setVecinos(V6);
   T6.setEstadoTerritorio(false);
   T6.setCantiUnidades(0);
 
+  T7.setIdTerritorio(7);
   T7.setNombre("Ontario");
   T7.setVecinos(V7);
   T7.setEstadoTerritorio(false);
   T7.setCantiUnidades(0);
 
+  T8.setIdTerritorio(8);
   T8.setNombre("Quebec");
   T8.setVecinos(V8);
   T8.setEstadoTerritorio(false);
   T8.setCantiUnidades(0);
 
+  T9.setIdTerritorio(9);
   T9.setNombre("Estados_Unidos_Occidentales");
   T9.setVecinos(V9);
   T9.setEstadoTerritorio(false);
   T9.setCantiUnidades(0);
 
+  T10.setIdTerritorio(10);
   T10.setNombre("Argentina");
   T10.setVecinos(V10);
   T10.setEstadoTerritorio(false);
   T10.setCantiUnidades(0);
 
+  T11.setIdTerritorio(11);
   T11.setNombre("Brasil");
   T11.setVecinos(V11);
   T11.setEstadoTerritorio(false);
   T11.setCantiUnidades(0);
 
+  T12.setIdTerritorio(12);
   T12.setNombre("Peru");
   T12.setVecinos(V12);
   T12.setEstadoTerritorio(false);
   T12.setCantiUnidades(0);
 
+  T13.setIdTerritorio(13);
   T13.setNombre("Venezuela");
   T13.setVecinos(V13);
   T13.setEstadoTerritorio(false);
   T13.setCantiUnidades(0);
 
+  T14.setIdTerritorio(14);
   T14.setNombre("Gran_Bretana");
   T14.setVecinos(V14);
   T14.setEstadoTerritorio(false);
   T14.setCantiUnidades(0);
 
+  T15.setIdTerritorio(15);
   T15.setNombre("Islandia");
   T15.setVecinos(V15);
   T15.setEstadoTerritorio(false);
   T15.setCantiUnidades(0);
 
+  T16.setIdTerritorio(16);
   T16.setNombre("Europa_del_Norte");
   T16.setVecinos(V16);
   T16.setEstadoTerritorio(false);
   T16.setCantiUnidades(0);
 
+  T17.setIdTerritorio(17);
   T17.setNombre("Escandinavia");
   T17.setVecinos(V17);
   T17.setEstadoTerritorio(false);
   T17.setCantiUnidades(0);
 
+  T18.setIdTerritorio(18);
   T18.setNombre("Europa_del_Sur");
   T18.setVecinos(V18);
   T18.setEstadoTerritorio(false);
   T18.setCantiUnidades(0);
 
+  T19.setIdTerritorio(19);
   T19.setNombre("Ucrania");
   T19.setVecinos(V19);
   T19.setEstadoTerritorio(false);
   T19.setCantiUnidades(0);
 
+  T20.setIdTerritorio(20);
   T20.setNombre("Europa_Occidental");
   T20.setVecinos(V20);
   T20.setEstadoTerritorio(false);
   T20.setCantiUnidades(0);
 
+  T21.setIdTerritorio(21);
   T21.setNombre("Congo");
   T21.setVecinos(V21);
   T21.setEstadoTerritorio(false);
   T21.setCantiUnidades(0);
 
+  T22.setIdTerritorio(22);
   T22.setNombre("Africa_Oriental");
   T22.setVecinos(V22);
   T22.setEstadoTerritorio(false);
   T22.setCantiUnidades(0);
 
+  T23.setIdTerritorio(23);
   T23.setNombre("Egipto");
   T23.setVecinos(V23);
   T23.setEstadoTerritorio(false);
   T23.setCantiUnidades(0);
 
+  T24.setIdTerritorio(24);
   T24.setNombre("Madagascar");
   T24.setVecinos(V24);
   T24.setEstadoTerritorio(false);
   T24.setCantiUnidades(0);
 
+  T25.setIdTerritorio(25);
   T25.setNombre("Africa_del_Norte");
   T25.setVecinos(V25);
   T25.setEstadoTerritorio(false);
   T25.setCantiUnidades(0);
 
+  T26.setIdTerritorio(26);
   T26.setNombre("Africa_del_Sur");
   T26.setVecinos(V26);
   T26.setEstadoTerritorio(false);
   T26.setCantiUnidades(0);
 
+  T27.setIdTerritorio(27);
   T27.setNombre("Afghanistan");
   T27.setVecinos(V27);
   T27.setEstadoTerritorio(false);
   T27.setCantiUnidades(0);
 
+  T28.setIdTerritorio(28);
   T28.setNombre("China");
   T28.setVecinos(V28);
   T28.setEstadoTerritorio(false);
   T28.setCantiUnidades(0);
 
+  T29.setIdTerritorio(29);
   T29.setNombre("India");
   T29.setVecinos(V29);
   T29.setEstadoTerritorio(false);
   T29.setCantiUnidades(0);
 
+  T30.setIdTerritorio(30);
   T30.setNombre("Irkutsk");
   T30.setVecinos(V30);
   T30.setEstadoTerritorio(false);
   T30.setCantiUnidades(0);
 
+  T31.setIdTerritorio(31);
   T31.setNombre("Japon");
   T31.setVecinos(V31);
   T31.setEstadoTerritorio(false);
   T31.setCantiUnidades(0);
 
+  T32.setIdTerritorio(32);
   T32.setNombre("Kamchatka");
   T32.setVecinos(V32);
   T32.setEstadoTerritorio(false);
   T32.setCantiUnidades(0);
 
+  T33.setIdTerritorio(33);
   T33.setNombre("Medio_Oriente");
   T33.setVecinos(V33);
   T33.setEstadoTerritorio(false);
   T33.setCantiUnidades(0);
 
+  T34.setIdTerritorio(34);
   T34.setNombre("Mongolia");
   T34.setVecinos(V34);
   T34.setEstadoTerritorio(false);
   T34.setCantiUnidades(0);
 
+  T35.setIdTerritorio(35);
   T35.setNombre("Siam");
   T35.setVecinos(V35);
   T35.setEstadoTerritorio(false);
   T35.setCantiUnidades(0);
 
+  T36.setIdTerritorio(36);
   T36.setNombre("Siberia");
   T36.setVecinos(V36);
   T36.setEstadoTerritorio(false);
   T36.setCantiUnidades(0);
 
+  T37.setIdTerritorio(37);
   T37.setNombre("Ural");
   T37.setVecinos(V37);
   T37.setEstadoTerritorio(false);
   T37.setCantiUnidades(0);
 
+  T38.setIdTerritorio(38);
   T38.setNombre("Yakutsk");
   T38.setVecinos(V38);
   T38.setEstadoTerritorio(false);
   T38.setCantiUnidades(0);
 
+  T39.setIdTerritorio(39);
   T39.setNombre("Australia_Oriental");
   T39.setVecinos(V39);
   T39.setEstadoTerritorio(false);
   T39.setCantiUnidades(0);
 
+  T40.setIdTerritorio(40);
   T40.setNombre("Indonesia");
   T40.setVecinos(V40);
   T40.setEstadoTerritorio(false);
   T40.setCantiUnidades(0);
 
+  T41.setIdTerritorio(41);
   T41.setNombre("Nueva_Guinea");
   T41.setVecinos(V41);
   T41.setEstadoTerritorio(false);
   T41.setCantiUnidades(0);
 
+  T42.setIdTerritorio(42);
   T42.setNombre("Australia_Occidental");
   T42.setVecinos(V42);
   T42.setEstadoTerritorio(false);
@@ -727,6 +769,30 @@ void Risk::imprimirMapa()
   }
 }
 
+void Risk::insertarAristasJuego()
+{
+  std::list<Continente>::iterator it;
+  for (it = continentes.begin(); it != continentes.end(); it++)
+  {
+    std::list<Territorio>::iterator it2;
+    std::list<Territorio> territorios = it->getListaTerritorio();
+    for (it2 = territorios.begin(); it2 != territorios.end(); it2++)
+    {
+      std::vector<string> vecinos = it2->getVecinos();
+      std::vector<string>::iterator it3;
+      for (it3 = vecinos.begin(); it3 != vecinos.end(); it3++)
+      { 
+        std::list<Territorio>::iterator it4;
+        std::list<Territorio> territoriosVecinos = it->getListaTerritorio();
+        for(it4 = territoriosVecinos.begin(); it4 != territoriosVecinos.end(); it4++){
+          if(*it3 == it4->getNombre())
+            grafo.insertarArista(it2->getIdTerritorio(), it4->getIdTerritorio(), it4->getCantiUnidades());
+        }
+      }
+    }
+  }
+}
+
 void Risk::imprimirVecinos(Territorio territorio)
 {
   std::list<Continente>::iterator it;
@@ -753,13 +819,13 @@ void Risk::imprimirVecinos(Territorio territorio)
 
 void Risk::imprimirJugadores()
 {
-  cout << "Prueba impresion "<<endl;
+  cout << "Prueba impresion " << endl;
   std::vector<Jugador>::iterator it;
   std::list<Territorio>::iterator it2;
   std::vector<Jugador> auxJugadores = jugadoresActivos;
   for (it = auxJugadores.begin(); it != auxJugadores.end(); it++)
   {
-    cout <<"Jugador: "<< it->getId() << endl;
+    cout << "Jugador: " << it->getId() << endl;
     std::list<Territorio> listaAuxTerritorios = it->getTerritoriosConquistados();
     for (it2 = listaAuxTerritorios.begin(); it2 != listaAuxTerritorios.end(); it2++)
     {

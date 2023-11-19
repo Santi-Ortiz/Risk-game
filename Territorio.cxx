@@ -2,6 +2,20 @@
 #include <iostream>
 using namespace std;
 
+Territorio::Territorio(){
+
+}
+
+int Territorio::getIdTerritorio(){
+  return id;
+}
+
+void Territorio::setIdTerritorio(int id){
+
+  this->id = id;
+}
+
+
 string Territorio::getNombre()
 {
   return nombre;

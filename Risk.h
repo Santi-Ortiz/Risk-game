@@ -18,6 +18,7 @@ private:
   list<Territorio> G1, G2, G3, G4, G5, G6, lterritorios;
   list<list<Territorio>> territorios;
   list<Continente> continentes;
+  Grafo<int> grafo;
 
 public:
   vector<Jugador> getjugadoresActivos();
@@ -132,6 +133,9 @@ public:
   void combinacionesCartasValidas(Jugador jugador);
   void verificarTerritoriosJugador(list<Carta> cartas);
   void adicionarUnidadesXCartas();
+
+  // Grafo
+  void insertarAristasJuego();
 };
 
 #endif
