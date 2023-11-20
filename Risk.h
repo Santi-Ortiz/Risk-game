@@ -142,6 +142,9 @@ public:
   void setGrafo(Grafo<int> grafo);
   int calcularCosto (int idTerritorio1);
   void conquistaMasBarata(Jugador jugador);
+  
+  // Inicializar con archivo
+  void inicializarPartida(char *token, string s);
 };
 
 #endif
