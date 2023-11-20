@@ -1290,10 +1290,11 @@ bool Risk::verificarVecinos(Territorio T1, Territorio T2)
   return false;
 }
 
+
 bool Risk::atacarTerritorio(Territorio T1, Territorio T2, Jugador &J1, Jugador &J2)
 {
-  std::vector<Jugador>::iterator it;
-  std::list<Territorio>::iterator it2;
+  std::vector<Jugador>::iterator it, itAtacado;
+  std::list<Territorio>::iterator it2, itLAtacado;
   bool A1 = false, A2 = false;
   Territorio Atacante = T1, Atacado = T2;
   int resulAtacante[3], resulDefensor[2], perdidasAtacante = 0, perdidasDefensor = 0;
@@ -1301,15 +1302,20 @@ bool Risk::atacarTerritorio(Territorio T1, Territorio T2, Jugador &J1, Jugador &
   // Buscar los territorios en la lista de territorios
   for (it = jugadoresActivos.begin(); it != jugadoresActivos.end(); it++)
   {
-    if (it->getId() == J1.getId())
+    for (itAtacado = jugadoresActivos.begin(); itAtacado != jugadoresActivos.end(); itAtacado++)
     {
-      std::list<Territorio> lterritoriosAtacante = it->getTerritoriosConquistados();
-      for (it2 = lterritoriosAtacante.begin(); it2 != lterritoriosAtacante.end(); it2++)
+      if (it->getId() == J1.getId())
       {
-
-        if (it2->getNombre() == T1.getNombre())
-        {
-          // Verificar que el territorio atacante pertenezca al jugador que está atacando
+        if (itAtacado->getId() == J2.getId()){
+          std::list<Territorio> lterritoriosAtacante = it->getTerritoriosConquistados();
+          std::list<Territorio> lterritoriosAtacado = itAtacado->getTerritoriosConquistados();
+          for (it2 = lterritoriosAtacante.begin(); it2 != lterritoriosAtacante.end(); it2++)
+          {
+            for (itLAtacado = lterritoriosAtacado.begin(); itLAtacado != lterritoriosAtacado.end(); itAtacado++){
+              if (it2->getNombre() == T1.getNombre())
+              {
+                if (itLAtacado->getNombre() == T2.getNombre()){
+                  // Verificar que el territorio atacante pertenezca al jugador que está atacando
           if (!territorioPerteneciente(J1, Atacante.getNombre()))
           {
             std::cout << "El territorio atacante no pertenece al jugador que está atacando" << std::endl;
@@ -1378,10 +1384,14 @@ bool Risk::atacarTerritorio(Territorio T1, Territorio T2, Jugador &J1, Jugador &
             return true;
           }
           else
-          {
+              {
             std::cout << "El defensor ha ganado y el territorio " << Atacante.getNombre() << " no ha podido ser conquistado" << std::endl;
             Atacante.setCantiUnidades(Atacante.getCantiUnidades() - perdidasAtacante);
             return true;
+              }
+                }
+              }
+            }
           }
         }
       }
@@ -1391,6 +1401,8 @@ bool Risk::atacarTerritorio(Territorio T1, Territorio T2, Jugador &J1, Jugador &
   std::cout << "Uno o ambos territorios no existen" << std::endl;
   return false;
 }
+
+
 
 /*bool Risk::atacarTerritorio(Territorio T1, Territorio T2, Jugador &J1, Jugador &J2)
 {
