@@ -25,6 +25,7 @@ public:
   void EliminarVertice(const T& vertice);
   void EliminarArista(const T& origen, const T& destino);
   void Dijkstra(const T& origen);
+  vector<T> Grafo<T>::CaminoMasCorto(const T& origen, const T& destino)
 };
 
 #include "Grafo.hxx"

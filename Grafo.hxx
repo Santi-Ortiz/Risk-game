@@ -141,3 +141,59 @@ void Grafo<T>::Dijkstra(const T& origen) {
         cout << "ID pais: " << vertices[i] << " - Distancia minima: " << distancia[i] << endl;
     }
 }
+
+template <typename T>
+vector<T> Grafo<T>::CaminoMasCorto(const T& origen, const T& destino) {
+    int n = vertices.size();
+    int idxOrigen = BuscarVerticeIndice(origen);
+    int idxDestino = BuscarVerticeIndice(destino);
+
+    if (idxOrigen == -1 || idxDestino == -1) {
+        cout << "ID del país de origen o destino no encontrado." << endl;
+        return vector<T>();
+    }
+
+    vector<int> distancia(n, INT_MAX);
+    visitado = vector<bool>(n, false);
+    vector<int> caminoMinimo(n, -1);
+
+    distancia[idxOrigen] = 0;
+
+    while (count(visitado.begin(), visitado.end(), true) < n) {
+        int u = -1;
+        int distanciaMinima = INT_MAX;
+
+        for (int v = 0; v < n; ++v) {
+            if (!visitado[v] && distancia[v] < distanciaMinima) {
+                u = v;
+                distanciaMinima = distancia[v];
+            }
+        }
+
+        if (u == -1 || u == idxDestino) {
+            // No hay más vértices alcanzables o hemos alcanzado el destino
+            break;
+        }
+
+        visitado[u] = true;
+
+        for (int v = 0; v < n; ++v) {
+            if (!visitado[v] && matrizAdyacencia[u][v] && distancia[u] != INT_MAX &&
+                distancia[u] + matrizAdyacencia[u][v] < distancia[v]) {
+                distancia[v] = distancia[u] + matrizAdyacencia[u][v];
+                caminoMinimo[v] = u;
+            }
+        }
+    }
+
+    // Construir el vector del camino más corto hacia el destino
+    vector<T> camino;
+    int v = idxDestino;
+    while (v != -1) {
+        camino.push_back(vertices[v]);
+        v = caminoMinimo[v];
+    }
+
+    reverse(camino.begin(), camino.end());
+    return camino;
+}
