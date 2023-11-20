@@ -154,7 +154,7 @@ vector<T> Grafo<T>::CaminoMasCorto(const T& origen, const T& destino) {
     }
 
     vector<int> distancia(n, INT_MAX);
-    visitado = vector<bool>(n, false);
+    vector<bool> visitado = vector<bool>(n, false);
     vector<int> caminoMinimo(n, -1);
 
     distancia[idxOrigen] = 0;

@@ -1880,3 +1880,26 @@ void Risk::modosDeJuego(Jugador J1, Jugador J2)
     std::cout << "------------------------------------------" << endl;
   }
 }
+
+void Risk::conquistaMasBarata (Jugador jugador){
+  vector<vector<int>> caminoCorto;
+  vector<vector<int>> auxCaminoCorto;
+  list<Territorio> &listaTerritoriosJug = jugador.getTerritoriosConquistados();
+  list<Territorio>::iterator itTerritorio;
+  vector<vector<int>>::iterator itVectores; 
+  for (itTerritorio=listaTerritoriosJug.begin(); itTerritorio!=listaTerritoriosJug.end(); itTerritorio++){
+    for (itVectores=caminoCorto.begin(); itVectores != caminoCorto.end(); itVectores++){
+      for (int i=1; i<= 42; i++){
+        caminoCorto[i] = grafo.CaminoMasCorto(itTerritorio->getIdTerritorio(),i);
+      }
+    }
+  }
+  for (int i=0; i <= caminoCorto.size(); i++){
+    if (auxCaminoCorto[i].size() > caminoCorto[i].size()){
+      auxCaminoCorto[i] = caminoCorto[i];
+    }
+  }
+  for (int i=0; i <= auxCaminoCorto.size(); i++){
+    //cout << "La conquista más barata es avanzar sobre el territorio" << auxCaminoCorto[i] << "desde el territorio Para conquistar el territorio , debe atacar desde , pasando por los territorios , , ..., . Debe conquistar unidades de ejército." << endl;
+  }
+}

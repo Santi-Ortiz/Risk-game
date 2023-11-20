@@ -141,6 +141,7 @@ public:
   Grafo<int> getGrafo();
   void setGrafo(Grafo<int> grafo);
   int calcularCosto (int idTerritorio1);
+  void conquistaMasBarata(Jugador jugador);
 };
 
 #endif
