@@ -318,39 +318,41 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             cout << " \t Costo conquista del territorio: " << c2 << endl
                  << endl;
             int costoArsita;
-            //CostoArsita debe utilizar el idPais y con los for llegar a las unidades del terriotrio y asignarlas
-            int idPais = std::stoi(c2);
-            if (idPais>=1 && idPais<=42){
-                R.getGrafo().Dijkstra(idPais);
             // CostoArsita debe utilizar el idPais y con los for llegar a las unidades del terriotrio y asignarlas
-            Grafo<int> GrafoRisk;
             int idPais = std::stoi(c2);
-            if (idPais>=1 && idPais<=42){
+            if (idPais >= 1 && idPais <= 42)
+            {
                 R.getGrafo().Dijkstra(idPais);
+                // CostoArsita debe utilizar el idPais y con los for llegar a las unidades del terriotrio y asignarlas
+                Grafo<int> GrafoRisk;
+                int idPais = std::stoi(c2);
+                if (idPais >= 1 && idPais <= 42)
+                {
+                    R.getGrafo().Dijkstra(idPais);
+                }
+                else
+                {
+                    cout << "Ingrese un ID de país correcto" << endl;
+                }
+            }
+            else if (c1 == "conquista_mas_barata" && c2 == "" && c3 == "")
+            {
+                cout << " \t Comando de conquista mas barata inicializado correctamente"
+                     << endl
+                     << endl;
+                // R.conquistaMasBarata();
+            }
+            else if (c1 == "salir" && c2 == "" && c3 == "")
+            {
+                cout << " \t Salida exitosa!" << endl;
             }
             else
             {
-                cout << "Ingrese un ID de país correcto" << endl;
+                cout << " \t Ingrese un comando valido..." << endl;
             }
         }
-        else if (c1 == "conquista_mas_barata" && c2 == "" && c3 == "")
-        {
-            cout << " \t Comando de conquista mas barata inicializado correctamente"
-                 << endl
-                 << endl;
-            //R.conquistaMasBarata();
-            
-        }
-        else if (c1 == "salir" && c2 == "" && c3 == "")
-        {
-            cout << " \t Salida exitosa!" << endl;
-        }
-        else
-        {
-            cout << " \t Ingrese un comando valido..." << endl;
-        }
     }
-};
+}
 
 int main()
 {
