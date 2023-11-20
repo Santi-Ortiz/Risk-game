@@ -347,8 +347,10 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                  << endl;
             int costoArsita;
             //CostoArsita debe utilizar el idPais y con los for llegar a las unidades del terriotrio y asignarlas
-            Grafo<int> GrafoRisk;
             int idPais = std::stoi(c2);
+            R.insertarVerticesJuego();
+            R.insertarAristasJuego();
+            /*Grafo<int> GrafoRisk;
             GrafoRisk.InsertarVertice(1);
             GrafoRisk.InsertarVertice(2);
             GrafoRisk.InsertarVertice(3);
@@ -363,7 +365,7 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             GrafoRisk.InsertarVertice(12);
             GrafoRisk.InsertarVertice(13);
             GrafoRisk.InsertarVertice(14);
-            GrafoRisk.InsertarVertice(15);/*
+            GrafoRisk.InsertarVertice(15);
             GrafoRisk.InsertarVertice(16);
             GrafoRisk.InsertarVertice(17);
             GrafoRisk.InsertarVertice(18);
@@ -391,7 +393,9 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             GrafoRisk.InsertarVertice(40);
             GrafoRisk.InsertarVertice(41);
             GrafoRisk.InsertarVertice(42);*/
-            GrafoRisk.InsertarArista(1,2,32);
+
+
+            /*GrafoRisk.InsertarArista(1,2,32);
             GrafoRisk.InsertarArista(1,6,54);
             GrafoRisk.InsertarArista(1,32,34);
             GrafoRisk.InsertarArista(2,1,65);
@@ -426,9 +430,9 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             GrafoRisk.InsertarArista(9,2,43);
             GrafoRisk.InsertarArista(9,3,23);
             GrafoRisk.InsertarArista(9,4,43);
-            GrafoRisk.InsertarArista(9,7,12);
+            GrafoRisk.InsertarArista(9,7,12);*/
             if (idPais>=1 && idPais<=42){
-                GrafoRisk.Dijkstra(idPais);
+                R.getGrafo().Dijkstra(idPais);
             }
             else {
                 cout << "Ingrese un ID de país correcto" << endl;

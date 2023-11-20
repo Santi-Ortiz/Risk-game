@@ -7,6 +7,7 @@
 #include "Territorio.h"
 #include "Continente.h"
 #include "Risk.h"
+#include "Grafo.h"
 
 using namespace std;
 class Risk
@@ -136,6 +137,10 @@ public:
 
   // Grafo
   void insertarAristasJuego();
+  void insertarVerticesJuego();
+  Grafo<int> getGrafo();
+  void setGrafo(Grafo<int> grafo);
+  int calcularCosto (int idTerritorio1);
 };
 
 #endif

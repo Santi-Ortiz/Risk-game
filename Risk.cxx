@@ -769,8 +769,60 @@ void Risk::imprimirMapa()
   }
 }
 
-void Risk::insertarAristasJuego()
-{
+Grafo<int> Risk::getGrafo(){
+  return grafo;
+}
+
+void Risk::setGrafo(Grafo<int> grafo){
+  this->grafo = grafo;
+}
+
+void Risk::insertarVerticesJuego(){
+  grafo.InsertarVertice(1);
+  grafo.InsertarVertice(2);
+  grafo.InsertarVertice(3);
+  grafo.InsertarVertice(4);
+  grafo.InsertarVertice(5);
+  grafo.InsertarVertice(6);
+  grafo.InsertarVertice(7);
+  grafo.InsertarVertice(8);
+  grafo.InsertarVertice(9);
+  grafo.InsertarVertice(10);
+  grafo.InsertarVertice(11);
+  grafo.InsertarVertice(12);
+  grafo.InsertarVertice(13);
+  grafo.InsertarVertice(14);
+  grafo.InsertarVertice(15);
+  grafo.InsertarVertice(16);
+  grafo.InsertarVertice(17);
+  grafo.InsertarVertice(18);
+  grafo.InsertarVertice(19);
+  grafo.InsertarVertice(20);
+  grafo.InsertarVertice(21);
+  grafo.InsertarVertice(22);
+  grafo.InsertarVertice(23);
+  grafo.InsertarVertice(24);
+  grafo.InsertarVertice(25);
+  grafo.InsertarVertice(26);
+  grafo.InsertarVertice(27);
+  grafo.InsertarVertice(28);
+  grafo.InsertarVertice(29);
+  grafo.InsertarVertice(30);
+  grafo.InsertarVertice(31);
+  grafo.InsertarVertice(32);
+  grafo.InsertarVertice(33);
+  grafo.InsertarVertice(34);
+  grafo.InsertarVertice(35);
+  grafo.InsertarVertice(36);
+  grafo.InsertarVertice(37);
+  grafo.InsertarVertice(38);
+  grafo.InsertarVertice(39);
+  grafo.InsertarVertice(40);
+  grafo.InsertarVertice(41);
+  grafo.InsertarVertice(42);
+}
+
+int Risk::calcularCosto (int idTerritorio1){
   std::list<Continente>::iterator it;
   for (it = continentes.begin(); it != continentes.end(); it++)
   {
@@ -778,19 +830,178 @@ void Risk::insertarAristasJuego()
     std::list<Territorio> territorios = it->getListaTerritorio();
     for (it2 = territorios.begin(); it2 != territorios.end(); it2++)
     {
-      std::vector<string> vecinos = it2->getVecinos();
-      std::vector<string>::iterator it3;
-      for (it3 = vecinos.begin(); it3 != vecinos.end(); it3++)
-      { 
-        std::list<Territorio>::iterator it4;
-        std::list<Territorio> territoriosVecinos = it->getListaTerritorio();
-        for(it4 = territoriosVecinos.begin(); it4 != territoriosVecinos.end(); it4++){
-          if(*it3 == it4->getNombre())
-            grafo.insertarArista(it2->getIdTerritorio(), it4->getIdTerritorio(), it4->getCantiUnidades());
-        }
+      if (it2->getIdTerritorio() == idTerritorio1){
+        return it2->getCantiUnidades();
       }
     }
   }
+}
+
+void Risk::insertarAristasJuego()
+{
+  grafo.InsertarArista(1,2,calcularCosto(2));
+  grafo.InsertarArista(1,6,calcularCosto(6));
+  grafo.InsertarArista(1,32,calcularCosto(32));
+  grafo.InsertarArista(2,1,calcularCosto(1));
+  grafo.InsertarArista(2,4,calcularCosto(4));
+  grafo.InsertarArista(2,6,calcularCosto(6));
+  grafo.InsertarArista(2,7,calcularCosto(7));
+  grafo.InsertarArista(2,9,calcularCosto(9));
+  grafo.InsertarArista(3,4,calcularCosto(4));
+  grafo.InsertarArista(3,9,calcularCosto(9));
+  grafo.InsertarArista(3,13,calcularCosto(13));
+  grafo.InsertarArista(4,3,calcularCosto(3));
+  grafo.InsertarArista(4,7,calcularCosto(7));
+  grafo.InsertarArista(4,8,calcularCosto(8));
+  grafo.InsertarArista(4,9,calcularCosto(9));
+  grafo.InsertarArista(5,6,calcularCosto(6));
+  grafo.InsertarArista(5,7,calcularCosto(7));
+  grafo.InsertarArista(5,8,calcularCosto(8));
+  grafo.InsertarArista(5,15,calcularCosto(15));
+  grafo.InsertarArista(6,1,calcularCosto(1));
+  grafo.InsertarArista(6,2,calcularCosto(2));
+  grafo.InsertarArista(6,5,calcularCosto(5));
+  grafo.InsertarArista(6,7,calcularCosto(7));
+  grafo.InsertarArista(7,2,calcularCosto(2));
+  grafo.InsertarArista(7,4,calcularCosto(4));
+  grafo.InsertarArista(7,5,calcularCosto(5));
+  grafo.InsertarArista(7,6,calcularCosto(6));
+  grafo.InsertarArista(7,8,calcularCosto(8));
+  grafo.InsertarArista(7,9,calcularCosto(9));
+  grafo.InsertarArista(8,4,calcularCosto(4));
+  grafo.InsertarArista(8,5,calcularCosto(5));
+  grafo.InsertarArista(8,7,calcularCosto(7));
+  grafo.InsertarArista(9,2,calcularCosto(2));
+  grafo.InsertarArista(9,3,calcularCosto(3));
+  grafo.InsertarArista(9,4,calcularCosto(4));
+  grafo.InsertarArista(9,7,calcularCosto(7));
+  grafo.InsertarArista(10,11,calcularCosto(11));
+  grafo.InsertarArista(10,12,calcularCosto(12));
+  grafo.InsertarArista(11,10,calcularCosto(10));
+  grafo.InsertarArista(11,12,calcularCosto(12));
+  grafo.InsertarArista(11,13,calcularCosto(13));
+  grafo.InsertarArista(11,25,calcularCosto(25));
+  grafo.InsertarArista(12,10,calcularCosto(10));
+  grafo.InsertarArista(12,11,calcularCosto(11));
+  grafo.InsertarArista(12,13,calcularCosto(13));
+  grafo.InsertarArista(13,3,calcularCosto(3));
+  grafo.InsertarArista(13,11,calcularCosto(11));
+  grafo.InsertarArista(13,12,calcularCosto(12));
+  grafo.InsertarArista(14,15,calcularCosto(15));
+  grafo.InsertarArista(14,16,calcularCosto(16));
+  grafo.InsertarArista(14,17,calcularCosto(17));
+  grafo.InsertarArista(14,20,calcularCosto(20));
+  grafo.InsertarArista(15,5,calcularCosto(5));
+  grafo.InsertarArista(15,14,calcularCosto(14));
+  grafo.InsertarArista(15,17,calcularCosto(17));
+  grafo.InsertarArista(16,14,calcularCosto(14));
+  grafo.InsertarArista(16,17,calcularCosto(17));
+  grafo.InsertarArista(16,18,calcularCosto(18));
+  grafo.InsertarArista(16,19,calcularCosto(19));
+  grafo.InsertarArista(16,20,calcularCosto(20));
+  grafo.InsertarArista(17,14,calcularCosto(14));
+  grafo.InsertarArista(17,15,calcularCosto(15));
+  grafo.InsertarArista(17,16,calcularCosto(16));
+  grafo.InsertarArista(17,19,calcularCosto(19));
+  grafo.InsertarArista(18,16,calcularCosto(16));
+  grafo.InsertarArista(18,19,calcularCosto(19));
+  grafo.InsertarArista(18,20,calcularCosto(20));
+  grafo.InsertarArista(18,23,calcularCosto(23));
+  grafo.InsertarArista(18,25,calcularCosto(25));
+  grafo.InsertarArista(18,33,calcularCosto(33));
+  grafo.InsertarArista(19,16,calcularCosto(16));
+  grafo.InsertarArista(19,17,calcularCosto(17));
+  grafo.InsertarArista(19,18,calcularCosto(18));
+  grafo.InsertarArista(19,27,calcularCosto(27));
+  grafo.InsertarArista(19,33,calcularCosto(33));
+  grafo.InsertarArista(19,37,calcularCosto(37));
+  grafo.InsertarArista(20,14,calcularCosto(14));
+  grafo.InsertarArista(20,16,calcularCosto(16));
+  grafo.InsertarArista(20,18,calcularCosto(18));
+  grafo.InsertarArista(20,25,calcularCosto(25));
+  grafo.InsertarArista(21,22,calcularCosto(22));
+  grafo.InsertarArista(21,25,calcularCosto(25));
+  grafo.InsertarArista(21,26,calcularCosto(26));
+  grafo.InsertarArista(22,21,calcularCosto(21));
+  grafo.InsertarArista(22,23,calcularCosto(23));
+  grafo.InsertarArista(22,24,calcularCosto(24));
+  grafo.InsertarArista(22,25,calcularCosto(25));
+  grafo.InsertarArista(22,26,calcularCosto(26));
+  grafo.InsertarArista(23,18,calcularCosto(18));
+  grafo.InsertarArista(23,22,calcularCosto(22));
+  grafo.InsertarArista(23,25,calcularCosto(25));
+  grafo.InsertarArista(23,33,calcularCosto(33));
+  grafo.InsertarArista(24,22,calcularCosto(22));
+  grafo.InsertarArista(24,26,calcularCosto(26));
+  grafo.InsertarArista(25,11,calcularCosto(11));
+  grafo.InsertarArista(21,18,calcularCosto(18));
+  grafo.InsertarArista(21,20,calcularCosto(20));
+  grafo.InsertarArista(25,21,calcularCosto(21));
+  grafo.InsertarArista(25,22,calcularCosto(22));
+  grafo.InsertarArista(25,23,calcularCosto(23));
+  grafo.InsertarArista(26,21,calcularCosto(21));
+  grafo.InsertarArista(26,22,calcularCosto(22));
+  grafo.InsertarArista(26,24,calcularCosto(24));
+  grafo.InsertarArista(27,19,calcularCosto(19));
+  grafo.InsertarArista(27,28,calcularCosto(28));
+  grafo.InsertarArista(27,29,calcularCosto(29));
+  grafo.InsertarArista(27,33,calcularCosto(33));
+  grafo.InsertarArista(27,37,calcularCosto(37));
+  grafo.InsertarArista(28,27,calcularCosto(27));
+  grafo.InsertarArista(28,29,calcularCosto(29));
+  grafo.InsertarArista(28,34,calcularCosto(34));
+  grafo.InsertarArista(28,35,calcularCosto(35));
+  grafo.InsertarArista(29,27,calcularCosto(27));
+  grafo.InsertarArista(29,28,calcularCosto(28));
+  grafo.InsertarArista(29,33,calcularCosto(33));
+  grafo.InsertarArista(29,35,calcularCosto(35));
+  grafo.InsertarArista(30,32,calcularCosto(32));
+  grafo.InsertarArista(30,34,calcularCosto(34));
+  grafo.InsertarArista(30,36,calcularCosto(36));
+  grafo.InsertarArista(30,38,calcularCosto(38));
+  grafo.InsertarArista(31,32,calcularCosto(32));
+  grafo.InsertarArista(31,34,calcularCosto(34));
+  grafo.InsertarArista(32,1,calcularCosto(1));
+  grafo.InsertarArista(32,30,calcularCosto(30));
+  grafo.InsertarArista(32,31,calcularCosto(31));
+  grafo.InsertarArista(32,34,calcularCosto(34));
+  grafo.InsertarArista(32,38,calcularCosto(38));
+  grafo.InsertarArista(33,18,calcularCosto(18));
+  grafo.InsertarArista(33,19,calcularCosto(19));
+  grafo.InsertarArista(33,23,calcularCosto(23));
+  grafo.InsertarArista(33,27,calcularCosto(27));
+  grafo.InsertarArista(33,29,calcularCosto(29));
+  grafo.InsertarArista(34,28,calcularCosto(28));
+  grafo.InsertarArista(34,30,calcularCosto(30));
+  grafo.InsertarArista(34,31,calcularCosto(31));
+  grafo.InsertarArista(34,32,calcularCosto(32));
+  grafo.InsertarArista(34,36,calcularCosto(36));
+  grafo.InsertarArista(35,28,calcularCosto(28));
+  grafo.InsertarArista(35,29,calcularCosto(29));
+  grafo.InsertarArista(35,40,calcularCosto(40));
+  grafo.InsertarArista(36,28,calcularCosto(28));
+  grafo.InsertarArista(36,30,calcularCosto(30));
+  grafo.InsertarArista(36,34,calcularCosto(34));
+  grafo.InsertarArista(36,37,calcularCosto(37));
+  grafo.InsertarArista(36,38,calcularCosto(38));
+  grafo.InsertarArista(37,19,calcularCosto(19));
+  grafo.InsertarArista(37,27,calcularCosto(27));
+  grafo.InsertarArista(37,28,calcularCosto(28));
+  grafo.InsertarArista(37,36,calcularCosto(36));
+  grafo.InsertarArista(38,30,calcularCosto(30));
+  grafo.InsertarArista(38,32,calcularCosto(32));
+  grafo.InsertarArista(38,36,calcularCosto(36));
+  grafo.InsertarArista(39,41,calcularCosto(41));
+  grafo.InsertarArista(39,42,calcularCosto(42));
+  grafo.InsertarArista(40,35,calcularCosto(35));
+  grafo.InsertarArista(40,41,calcularCosto(41));
+  grafo.InsertarArista(40,42,calcularCosto(42));
+  grafo.InsertarArista(41,39,calcularCosto(39));
+  grafo.InsertarArista(41,40,calcularCosto(40));
+  grafo.InsertarArista(41,42,calcularCosto(42));
+  grafo.InsertarArista(42,39,calcularCosto(39));
+  grafo.InsertarArista(42,40,calcularCosto(40));
+  grafo.InsertarArista(42,41,calcularCosto(41));
 }
 
 void Risk::imprimirVecinos(Territorio territorio)

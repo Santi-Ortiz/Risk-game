@@ -136,8 +136,8 @@ void Grafo<T>::Dijkstra(const T& origen) {
         }
     }
 
-    cout << "Distancias mínimas desde el país con ID " << vertices[idxOrigen] << " a los demás paises con ID:" << endl;
+    cout << "Distancias minimas desde el pais con ID " << vertices[idxOrigen] << " a los demas paises con ID:" << endl;
     for (int i = 0; i < n; ++i) {
-        cout << "ID país: " << vertices[i] << " - Distancia mínima: " << distancia[i] << endl;
+        cout << "ID pais: " << vertices[i] << " - Distancia minima: " << distancia[i] << endl;
     }
 }
