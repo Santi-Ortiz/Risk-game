@@ -1197,11 +1197,10 @@ bool Risk::territorioPerteneciente(Jugador J1, string territorio)
 
   std::vector<Jugador>::iterator it;
   std::list<Territorio>::iterator it2;
-  std::list<Territorio> T;
 
   for (it = jugadoresActivos.begin(); it != jugadoresActivos.end(); it++)
   {
-    T = it->getTerritoriosConquistados();
+    std::list<Territorio> &T = it->getTerritoriosConquistados();
     for (it2 = T.begin(); it2 != T.end(); it2++)
     {
       if (it->getId() == J1.getId())
@@ -1209,6 +1208,29 @@ bool Risk::territorioPerteneciente(Jugador J1, string territorio)
         if (it2->getNombre() == territorio)
         {
           std::cout << "El territorio " << territorio << " pertenece al jugador: " << it->getId() << endl;
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+bool Risk::perteneceTerritorio(Jugador J1, int idTerritorio)
+{
+
+  std::vector<Jugador>::iterator it;
+  std::list<Territorio>::iterator it2;
+
+  for (it = jugadoresActivos.begin(); it != jugadoresActivos.end(); it++)
+  {
+    std::list<Territorio> &T = it->getTerritoriosConquistados();
+    for (it2 = T.begin(); it2 != T.end(); it2++)
+    {
+      if (it->getId() == J1.getId())
+      {
+        if (it2->getIdTerritorio() == idTerritorio)
+        {
           return true;
         }
       }
@@ -1447,6 +1469,23 @@ bool Risk::turnoJugador(string jugador)
   std::cout << "No es el turno del jugador: " << jugador << endl;
   cout << "------------------------------------------" << endl;
   return status;
+}
+
+bool Risk::esTurno(Jugador jugador)
+{
+  int numJugadores = jugadoresActivos.size();
+
+  for (int i = 0; i < numJugadores; i++)
+  {
+    if (jugadoresActivos[i].getId() == jugador.getId() && jugadoresActivos[i].getEstadoTurno())
+    {
+      return true;
+    }
+  }
+  cout << "\n------------------------------------------" << endl;
+  cout << "No es el turno del jugador: " << jugador.getId() << endl;
+  cout << "------------------------------------------" << endl;
+  return false;
 }
 
 bool Risk::obtenerUnidades(Jugador J)
@@ -1799,5 +1838,32 @@ void Risk::inicializarPartida(char *token, string s)
       token = strtok(NULL, "   ");
       cout << "Numero de tropas: " << it2->getCantiUnidades() << " para el territorio " << it2->getNombre() << endl;
     }
+  }
+}
+
+void Risk::conquistaMasBarata(Jugador jugador)
+{
+  vector<vector<int>> caminoCorto, auxCaminoCorto;
+  list<Territorio> &listaTerritoriosJug = jugador.getTerritoriosConquistados();
+  list<Territorio>::iterator itTerritorio;
+  vector<vector<int>>::iterator itVectores;
+  for (itTerritorio = listaTerritoriosJug.begin(); itTerritorio != listaTerritoriosJug.end(); itTerritorio++)
+  {
+      for (int i = 1; i <= 42; i++)
+      {
+        caminoCorto[i] = grafo.CaminoMasCorto(itTerritorio->getIdTerritorio(), i);
+      }
+  }
+
+  for (int i = 0; i <= caminoCorto.size(); i++)
+  {
+    if (auxCaminoCorto[i].size() > caminoCorto[i].size())
+    {
+      auxCaminoCorto[i] = caminoCorto[i];
+    }
+  }
+  for (int i = 0; i <= auxCaminoCorto.size(); i++)
+  {
+    // cout << "La conquista más barata es avanzar sobre el territorio" << auxCaminoCorto[i] << "desde el territorio Para conquistar el territorio , debe atacar desde , pasando por los territorios , , ..., . Debe conquistar unidades de ejército." << endl;
   }
 }

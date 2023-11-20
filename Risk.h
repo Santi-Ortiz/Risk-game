@@ -117,11 +117,12 @@ public:
   void pruebaJugadores();
   void inicializarTurno();
   bool turnoJugador(string jugador);
+  bool esTurno(Jugador jugador);
   bool obtenerUnidades(Jugador J);
   void adicionarUnidadesXTerritorio(Jugador J);
   void adicionarUnidadesXContinente(list<Territorio> listaTerritoriosConquistados);
   bool territorioPerteneciente(Jugador J1, string territorio);
-  // void atacarTerritorio(vector<string> vecinos, Jugador J1, Jugador J2, Territorio T1, Territorio T2);
+  bool perteneceTerritorio(Jugador J1, int idTerritorio);
   bool atacarTerritorio(Territorio T1, Territorio T2, Jugador &J1, Jugador &J2);
   int dadosDefensor(Jugador J);
   int dadosAtacante(Jugador J);
