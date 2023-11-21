@@ -15,7 +15,7 @@ public:
 	// Métodos
 	string getNombre();
 	void setNombre(string nombre);
-	list<Territorio> getListaTerritorio();
+	list<Territorio> &getListaTerritorio();
 	void setListaTerritorio(list<Territorio> listT);
 	Continente crearContinente(string nombre);
 };

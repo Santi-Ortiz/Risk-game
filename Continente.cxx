@@ -14,7 +14,7 @@ void Continente::setNombre(string nombre)
   this->nombre = nombre;
 }
 
-list<Territorio> Continente::getListaTerritorio()
+list<Territorio> &Continente::getListaTerritorio()
 {
   return listaTerritorio;
 }
