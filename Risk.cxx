@@ -832,7 +832,7 @@ int Risk::calcularCosto(int idTerritorio1)
   for (it = continentes.begin(); it != continentes.end(); it++)
   {
     std::list<Territorio>::iterator it2;
-    std::list<Territorio> territorios = it->getListaTerritorio();
+    std::list<Territorio> &territorios = it->getListaTerritorio();
     for (it2 = territorios.begin(); it2 != territorios.end(); it2++)
     {
       if (it2->getIdTerritorio() == idTerritorio1)
@@ -1548,8 +1548,9 @@ bool Risk::atacarTerritorio(Territorio T1, Territorio T2, Jugador &J1, Jugador &
 {
   std::vector<Jugador>::iterator it, itAtacado;
   std::list<Territorio>::iterator it2, itLAtacado;
-  bool A1 = false, A2 = false;
-  Territorio Atacante = T1, Atacado = T2;
+  std::list<Continente>::iterator itContinente;
+  std::list<Territorio>::iterator it2Territorio;
+
   int resulAtacante[3], resulDefensor[2], perdidasAtacante = 0, perdidasDefensor = 0;
 
   // Buscar los territorios en la lista de territorios
@@ -1560,82 +1561,91 @@ bool Risk::atacarTerritorio(Territorio T1, Territorio T2, Jugador &J1, Jugador &
       std::list<Territorio> lterritoriosAtacante = it->getTerritoriosConquistados();
       for (it2 = lterritoriosAtacante.begin(); it2 != lterritoriosAtacante.end(); it2++)
       {
-
         if (it2->getNombre() == T1.getNombre())
         {
-          // Verificar que el territorio atacante pertenezca al jugador que está atacando
-          if (!territorioPerteneciente(J1, Atacante.getNombre()))
+          for (itContinente = continentes.begin(); itContinente != continentes.end(); itContinente++)
           {
-            std::cout << "El territorio atacante no pertenece al jugador que está atacando" << std::endl;
-            return false;
-          }
-
-          // Verificar que el territorio a atacar no pertenezca al mismo jugador
-          if (territorioPerteneciente(J1, Atacado.getNombre()))
-          {
-            std::cout << "El territorio a atacar pertenece al mismo jugador que está atacando" << std::endl;
-            return false;
-          }
-
-          // Verificar que los territorios sean vecinos
-          if (!verificarVecinos(Atacante, Atacado))
-          {
-            std::cout << "Los territorios no son vecinos" << std::endl;
-            return false;
-          }
-
-          // Realizar las tiradas de dados
-          for (int i = 0; i < 3; i++)
-          {
-            resulAtacante[i] = rand() % 6 + 1;
-          }
-          std::sort(resulAtacante, resulAtacante + 3, std::greater<int>());
-
-          for (int i = 0; i < 2; i++)
-          {
-            resulDefensor[i] = rand() % 6 + 1;
-          }
-          std::sort(resulDefensor, resulDefensor + 2, std::greater<int>());
-
-          // Calcular las pérdidas de unidades de ejército
-          for (int i = 0; i < 2; i++)
-          {
-            if (resulAtacante[i] > resulDefensor[i])
+            std::list<Territorio> lterritorios = itContinente->getListaTerritorio();
+            for (it2Territorio = lterritorios.begin(); it2Territorio != lterritorios.end(); it2Territorio++)
             {
-              perdidasDefensor++;
-            }
-            else
-            {
-              perdidasAtacante++;
-            }
-          }
+              if (it2Territorio->getNombre() == T2.getNombre())
+              {
+                // Verificar que el territorio atacante pertenezca al jugador que está atacando
+                if (!territorioPerteneciente(J1, it2->getNombre()))
+                {
+                  std::cout << "El territorio atacante no pertenece al jugador que está atacando" << std::endl;
+                  return false;
+                }
 
-          cout << "Perdida defensor: " << perdidasDefensor << endl;
-          cout << "Perdida atacante: " << perdidasAtacante << endl;
-          cout << "Cantidad de unidades de atacante: " << it2->getCantiUnidades() << endl;
-          cout << "Cantidad de unidades de defensor: " << itLAtacado->getCantiUnidades() << endl;
+                // Verificar que el territorio a atacar no pertenezca al mismo jugador
+                if (territorioPerteneciente(J1, it2Territorio->getNombre()))
+                {
+                  std::cout << "El territorio a atacar pertenece al mismo jugador que está atacando" << std::endl;
+                  return false;
+                }
 
-          if (perdidasAtacante >= Atacante.getCantiUnidades())
-          {
-            std::cout << "El ataque ha fallado" << std::endl;
-            T1.setEstadoTerritorio(false);
-            J1.getTerritoriosConquistados().erase(it2);
-            return true;
-          }
-          else if (perdidasDefensor >= Atacado.getCantiUnidades())
-          {
-            std::cout << "El territorio " << Atacado.getNombre() << " ha sido conquistado por el jugador " << J1.getId() << std::endl;
-            Atacado.setCantiUnidades(Atacante.getCantiUnidades() - perdidasAtacante);
-            Atacante.setCantiUnidades(Atacante.getCantiUnidades() - perdidasAtacante);
-            J1.setTerritoriosConquistados(Atacado);
-            J2.getTerritoriosConquistados().erase(it2);
-            return true;
-          }
-          else
-          {
-            std::cout << "El defensor ha ganado y el territorio " << Atacante.getNombre() << " no ha podido ser conquistado" << std::endl;
-            Atacante.setCantiUnidades(Atacante.getCantiUnidades() - perdidasAtacante);
-            return true;
+                // Verificar que los territorios sean vecinos
+                if (!verificarVecinos(*it2, *it2Territorio))
+                {
+                  std::cout << "Los territorios no son vecinos" << std::endl;
+                  return false;
+                }
+
+                // Realizar las tiradas de dados
+                for (int i = 0; i < 3; i++)
+                {
+                  resulAtacante[i] = rand() % 6 + 1;
+                }
+                std::sort(resulAtacante, resulAtacante + 3, std::greater<int>());
+
+                for (int i = 0; i < 2; i++)
+                {
+                  resulDefensor[i] = rand() % 6 + 1;
+                }
+                std::sort(resulDefensor, resulDefensor + 2, std::greater<int>());
+
+                // Calcular las pérdidas de unidades de ejército
+                for (int i = 0; i < 2; i++)
+                {
+                  if (resulAtacante[i] > resulDefensor[i])
+                  {
+                    perdidasDefensor++;
+                  }
+                  else
+                  {
+                    perdidasAtacante++;
+                  }
+                }
+
+                cout << "Perdida defensor: " << perdidasDefensor << endl;
+                cout << "Perdida atacante: " << perdidasAtacante << endl;
+                cout << "Cantidad de unidades de atacante: " << it2->getCantiUnidades() << endl;
+                cout << "Cantidad de unidades de defensor: " << it2Territorio->getCantiUnidades() << endl;
+
+                if (perdidasAtacante >= it2->getCantiUnidades())
+                {
+                  std::cout << "El ataque ha fallado" << std::endl;
+                  it2->setEstadoTerritorio(false);
+                  it->getTerritoriosConquistados().erase(it2);
+                  return true;
+                }
+                else if (perdidasDefensor >= it2Territorio->getCantiUnidades())
+                {
+                  std::cout << "El territorio " << it2Territorio->getNombre() << " ha sido conquistado por el jugador " << J1.getId() << std::endl;
+                  it2Territorio->setCantiUnidades(it2->getCantiUnidades() - perdidasAtacante);
+                  it2->setCantiUnidades(it2->getCantiUnidades() - perdidasAtacante);
+                  it->setTerritoriosConquistados(*it2Territorio);
+                  J2.getTerritoriosConquistados().erase(it2);
+                  return true;
+                }
+                else
+                {
+                  std::cout << "El defensor ha ganado y el territorio " << it2->getNombre() << " no ha podido ser conquistado" << std::endl;
+                  it2->setCantiUnidades(it2->getCantiUnidades() - perdidasAtacante);
+                  return true;
+                }
+              }
+            }
           }
         }
       }
@@ -1843,27 +1853,31 @@ void Risk::inicializarPartida(char *token, string s)
 
 void Risk::conquistaMasBarata(Jugador jugador)
 {
-  vector<vector<int>> caminoCorto, auxCaminoCorto;
+  vector<vector<int>> caminoCorto;
+  vector<int> auxCaminoCorto;
   list<Territorio> &listaTerritoriosJug = jugador.getTerritoriosConquistados();
   list<Territorio>::iterator itTerritorio;
   vector<vector<int>>::iterator itVectores;
   for (itTerritorio = listaTerritoriosJug.begin(); itTerritorio != listaTerritoriosJug.end(); itTerritorio++)
   {
-      for (int i = 1; i <= 42; i++)
-      {
-        caminoCorto[i] = grafo.CaminoMasCorto(itTerritorio->getIdTerritorio(), i);
-      }
-  }
-
-  for (int i = 0; i <= caminoCorto.size(); i++)
-  {
-    if (auxCaminoCorto[i].size() > caminoCorto[i].size())
+    for (int i = 1; i <= 42; i++)
     {
-      auxCaminoCorto[i] = caminoCorto[i];
+      caminoCorto[i] = grafo.CaminoMasCorto(itTerritorio->getIdTerritorio(), i);
     }
   }
-  for (int i = 0; i <= auxCaminoCorto.size(); i++)
+
+  for (int i = 1; i <= caminoCorto.size(); i++)
   {
-    // cout << "La conquista más barata es avanzar sobre el territorio" << auxCaminoCorto[i] << "desde el territorio Para conquistar el territorio , debe atacar desde , pasando por los territorios , , ..., . Debe conquistar unidades de ejército." << endl;
+    for (int j = 1; j <= caminoCorto[i].size(); j++)
+    {
+      if (auxCaminoCorto.size() > caminoCorto[i].size())
+        auxCaminoCorto[i] = caminoCorto[i][j];
+    }
+  }
+
+  cout << "La conquista mas barata es avanzar sobre el territorio: " << endl;
+  for (int i = 1; i <= auxCaminoCorto.size(); i++)
+  {
+    cout << auxCaminoCorto[i] << " -> " << endl;
   }
 }

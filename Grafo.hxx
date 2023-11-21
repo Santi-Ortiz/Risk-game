@@ -78,6 +78,16 @@ bool Grafo<T>::BuscarArista(const T& origen, const T& destino) {
     return false;
 }
 
+template <typename T>
+void Grafo<T>::ImprimirAristas() {
+    for(int i = 0; i < matrizAdyacencia.size(); i++) {
+        for(int j = 0; j < matrizAdyacencia[i].size(); j++) {
+            if (i != -1 && j != -1) 
+                cout << matrizAdyacencia[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
 
 template <typename T>
 void Grafo<T>::EliminarVertice(const T& vertice) {
@@ -106,7 +116,7 @@ void Grafo<T>::Dijkstra(const T& origen) {
     int n = vertices.size();
     int idxOrigen = BuscarVerticeIndice(origen);
     if (idxOrigen == -1) {
-        cout << "ID del país no encontrado." << endl;
+        cout << "ID del pais no encontrado." << endl;
         return;
     }
 

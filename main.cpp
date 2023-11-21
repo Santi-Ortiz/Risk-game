@@ -209,7 +209,6 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                     // R.imprimirMapa();
                     R.inicializarTurno();
                     R.insertarVerticesJuego();
-                    R.insertarAristasJuego();
                 }
             }
         }
@@ -318,19 +317,19 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             cout << " \t Costo conquista del territorio: " << c2 << endl
                  << endl;
             int idPais = std::stoi(c2);
+            R.insertarAristasJuego();
 
             if (idPais >= 1 && idPais <= 42)
             {
-                if (R.esTurno(J1))
+                if (!R.perteneceTerritorio(J1, idPais))
                 {
-                    if (!R.perteneceTerritorio(J1, idPais))
-                    {
-                        R.getGrafo().Dijkstra(idPais);
-                    }
-                    else
-                    {
-                        cout << "El territorio seleccionado ya se encuentra conquistado por el jugador" << endl;
-                    }
+                    R.getGrafo().ImprimirAristas();
+                    cout << "-------------------" << endl;
+                    R.getGrafo().Dijkstra(idPais);
+                }
+                else
+                {
+                    cout << "El territorio seleccionado ya se encuentra conquistado por el jugador" << endl;
                 }
             }
             else
@@ -343,6 +342,9 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
             cout << " \t Comando de conquista mas barata inicializado correctamente"
                  << endl
                  << endl;
+
+            R.getGrafo().ImprimirAristas();
+            cout << "-------------------" << endl;
             R.conquistaMasBarata(J1);
         }
         else if (c1 == "salir" && c2 == "" && c3 == "")

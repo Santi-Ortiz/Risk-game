@@ -22,6 +22,7 @@ public:
   bool BuscarVertice(const T& vertice);
   int BuscarVerticeIndice(const T& vertice);
   bool BuscarArista(const T& origen, const T& destino);
+  void ImprimirAristas();
   void EliminarVertice(const T& vertice);
   void EliminarArista(const T& origen, const T& destino);
   void Dijkstra(const T& origen);
