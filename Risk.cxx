@@ -766,7 +766,6 @@ void Risk::imprimirMapa()
     for (it2 = territorios.begin(); it2 != territorios.end(); it2++)
     {
       std::cout << "- " << it2->getNombre() << endl;
-      std::cout << "Numero cantidad unidades: " << it2->getCantiUnidades() << endl;
     }
   }
 }
@@ -1852,37 +1851,3 @@ void Risk::inicializarPartida(char *token, string s)
   }
 }
 
-void Risk::conquistaMasBarata(Jugador jugador)
-{
-  vector<vector<int>> caminoCorto;
-  vector<int> auxCaminoCorto;
-  list<Territorio> &listaTerritoriosJug = jugador.getTerritoriosConquistados();
-  list<Territorio>::iterator itTerritorio;
-  vector<vector<int>>::iterator itVectores;
-  for (itTerritorio = listaTerritoriosJug.begin(); itTerritorio != listaTerritoriosJug.end(); itTerritorio++)
-  {
-    for (int i = 1; i <= 42; i++)
-    {
-      caminoCorto[i] = grafo.CaminoMasCorto(itTerritorio->getIdTerritorio(), i);
-    }
-  }
-
-  for (int i = 1; i <= caminoCorto.size(); i++)
-  {
-    cout << "Vector: " << endl;
-    for (int j = 1; j <= caminoCorto[i].size(); j++)
-    {
-      if (auxCaminoCorto.size() > caminoCorto[i].size())
-        auxCaminoCorto[i] = caminoCorto[i][j];
-
-        cout << caminoCorto[i][j] << " " ;
-    }
-    cout << endl;
-  }
-
-  cout << "La conquista mas barata es avanzar sobre el territorio: " << endl;
-  for (int i = 1; i <= auxCaminoCorto.size(); i++)
-  {
-    cout << auxCaminoCorto[i] << " -> ";
-  }
-}
