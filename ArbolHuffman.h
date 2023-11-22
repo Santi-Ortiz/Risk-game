@@ -1,5 +1,5 @@
-#ifndef TADArbolHuffman
-#define TADArbolHuffman
+#ifndef __ArbolHuffman__
+#define __ArbolHuffman__
 #include <iostream>
 #include <string>
 #include <unordered_map>
