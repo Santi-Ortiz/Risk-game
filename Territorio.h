@@ -18,7 +18,7 @@ public:
   void setIdTerritorio(int id);
   string getNombre();
   void setNombre(string nombre);
-  int getCantiUnidades();
+  int &getCantiUnidades();
   void setCantiUnidades(int nUnidades);
   void setVecinos(vector<string> TVecino);
   vector<string> getVecinos();

@@ -36,7 +36,7 @@ void Territorio::setEstadoTerritorio(bool estado)
   this->estadoTerritorio = estado;
 }
 
-int Territorio::getCantiUnidades()
+int &Territorio::getCantiUnidades()
 {
   return cantiUnidades;
 }

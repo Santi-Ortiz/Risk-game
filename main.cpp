@@ -209,6 +209,7 @@ void introducirComando(string c1, string c2, string c3, string comando, Risk R, 
                     // R.imprimirMapa();
                     R.inicializarTurno();
                     R.insertarVerticesJuego();
+                    R.imprimirMapa();
                 }
             }
         }
